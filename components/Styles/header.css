@@ -1,0 +1,78 @@
+/* Dropdown menu styling */
+.menu-sm.dropdown-content {
+  position: absolute;
+  background-color: #000000;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 200px;
+}
+
+/* Responsive font size for buttons */
+.btn-ghost {
+  font-size: 1.3rem;
+  padding: 10px 20px;
+}
+
+@media (max-width: 768px) {
+  .btn-ghost {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Navbar link hover styling */
+.navbar ul li a:hover {
+  color: rgb(255, 255, 255);
+}
+
+/* Dropdown links styling */
+.dropdown ul li a {
+  color: rgb(255, 255, 255);
+}
+
+/* Display dropdown on hover */
+.group:hover ul {
+  display: block;
+}
+
+/* Outline button styling */
+.btn-outline {
+  border: 1px solid #000;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.btn-outline:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Mobile-specific navbar styles */
+@media (max-width: 1024px) {
+  .navbar {
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .dropdown {
+    display: block;
+  }
+
+  .menu-sm {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dropdown-content {
+    width: 100%;
+    position: absolute;
+  }
+
+  .btn-ghost svg {
+    height: 24px;
+    width: 24px;
+  }
+}
