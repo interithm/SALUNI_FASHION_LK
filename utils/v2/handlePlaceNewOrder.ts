@@ -39,7 +39,12 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
             
         }
         else if (paymentMethod === "gateway") {
-            paymentGateway(onlinePaymentData ,orderID);
+            paymentGateway(onlinePaymentData ,paymentID);
+            orderHandler(cartItems, orderID, customerID, billingDetails);
+            paymenthandler(onlinePaymentData, paymentID, orderID, customerID);
+            orderIdIncrement(orderID);
+            paymentIdIncrement(paymentID);
+            console.log("All Ids Are Incremented");
             
         }
         else {
