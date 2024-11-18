@@ -1,14 +1,14 @@
 import { collection, addDoc, updateDoc, where, query, getDocs, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-export const onlineSavePaymentData = async (paymentData: { paymentID: string }) => {
+export const onlineSavePaymentData = async (paymentData: { additional_data: number }) => {
     const orgDocId = "20240711-1011-SaluniFashion";
 
     // Reference to the payments collection
     const paymentDocRef = collection(db, 'organizations', orgDocId, 'paymentss');
 
     // Query to find the document by Payment_ID
-    const q = query(paymentDocRef, where("Payment_ID", "==", paymentData.paymentID));
+    const q = query(paymentDocRef, where("Payment_ID", "==", paymentData.additional_data));
     const querySnapshotPayment = await getDocs(q);
 
     if (!querySnapshotPayment.empty) {
