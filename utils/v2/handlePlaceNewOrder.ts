@@ -40,6 +40,7 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
         }
         else if (paymentMethod === "gateway") {
             paymentGateway(onlinePaymentData ,orderID);
+            
         }
         else {
             console.log("User select the koko payment gateway");
@@ -51,3 +52,4 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
 
     }
 }
+
