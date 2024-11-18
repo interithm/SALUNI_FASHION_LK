@@ -1,5 +1,13 @@
-export const paymentGateway = async (onlinePaymentData , orderID:number) => {
+export const paymentGateway = async (onlinePaymentData, orderID: number) => {
     console.log("Navigating to online portal...");
+
+    // Prepare the request body
+    const requestBody = {
+        ...onlinePaymentData,
+        additional_data: orderID.toString(),
+    };
+
+    console.log("Request body being sent:", requestBody); // Log the request body
 
     try {
         const response = await fetch('/api/onepay', {
@@ -7,7 +15,7 @@ export const paymentGateway = async (onlinePaymentData , orderID:number) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({...onlinePaymentData , additional_data:orderID.toString()}),
+            body: JSON.stringify(requestBody),
         });
 
         const data = await response.json();
