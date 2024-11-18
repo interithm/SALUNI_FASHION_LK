@@ -1,6 +1,6 @@
 // app/api/callback/route.js
 import { NextResponse } from 'next/server';
-import savePaymentData from '../../../../utils/v1/payments';
+import { onlineSavePaymentData } from '../../../../utils/v2/paymentMethod/online';
 
 
 
@@ -20,7 +20,7 @@ export async function POST(req) {
       console.log('Payment successful:', paymentData);
 
       // Call a function to save the payment data
-      await savePaymentData(paymentData);
+      await onlineSavePaymentData(paymentData);
 
       // Send a success response
       return NextResponse.json({ message: 'Payment processed successfully' }, { status: 200 });

@@ -4,7 +4,7 @@ import crypto from 'crypto';
 
 export async function POST(req: Request) {
   try {
-    const { amount, reference, customer_first_name, customer_last_name, customer_phone_number, customer_email } = await req.json();
+    const { amount, reference, customer_first_name, customer_last_name, customer_phone_number, customer_email, additional_data } = await req.json();
 
     // Transaction data
     const transactionData = {
@@ -15,9 +15,9 @@ export async function POST(req: Request) {
       customer_last_name,
       customer_phone_number,
       customer_email,
-      transaction_redirect_url: 'http://localhost:3000/product/cart', // Replace with your actual redirect URL
+      transaction_redirect_url: 'https://salunifashion.lk/', // Replace with your actual redirect URL
       currency: 'LKR',
-      additional_data:'order_id'
+      additional_data
     };
 
     // Convert request body to string and remove spaces

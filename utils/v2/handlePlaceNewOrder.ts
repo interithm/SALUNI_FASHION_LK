@@ -39,7 +39,13 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
             
         }
         else if (paymentMethod === "gateway") {
-            paymentGateway(onlinePaymentData ,orderID);
+            orderHandler(cartItems, orderID, customerID, billingDetails);
+            paymenthandler(onlinePaymentData, paymentID, orderID, customerID);
+            await paymentGateway(onlinePaymentData ,paymentID);
+            orderIdIncrement(orderID);
+            paymentIdIncrement(paymentID);
+            console.log("All Ids Are Incremented");
+            
         }
         else {
             console.log("User select the koko payment gateway");
@@ -51,3 +57,4 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
 
     }
 }
+
