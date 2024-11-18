@@ -1,10 +1,10 @@
-export const paymentGateway = async (onlinePaymentData, orderID: number) => {
+export const paymentGateway = async (onlinePaymentData, paymentID: number) => {
     console.log("Navigating to online portal...");
 
     // Prepare the request body
     const requestBody = {
         ...onlinePaymentData,
-        additional_data: orderID.toString(),
+        additional_data: paymentID,
     };
 
     console.log("Request body being sent:", requestBody); // Log the request body
