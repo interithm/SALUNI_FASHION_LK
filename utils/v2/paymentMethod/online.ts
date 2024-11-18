@@ -1,12 +1,12 @@
 import { collection, addDoc, updateDoc, where, query, getDocs, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-export const onlineSavePaymentData = async (paymentData: { additional_data: number }) => {
+export const onlineSavePaymentData = async (paymentData: { additional_data: string }) => {
     const orgDocId = "20240711-1011-SaluniFashion";
 
     // Reference to the payments collection
     const paymentDocRef = collection(db, 'organizations', orgDocId, 'paymentss');
-
+    console.log("Payment_ID", paymentData.additional_data)
     // Query to find the document by Payment_ID
     const q = query(paymentDocRef, where("Payment_ID", "==", paymentData.additional_data));
     const querySnapshotPayment = await getDocs(q);
@@ -21,6 +21,6 @@ export const onlineSavePaymentData = async (paymentData: { additional_data: numb
         console.log('Saving payment data:', paymentData);
         console.log('Payment data updated successfully.');
     } else {
-        console.error("No matching payment document found.");
+        console.error("No matching payment document founded.");
     }
 };
