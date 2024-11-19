@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { doc, getDoc } from 'firebase/firestore';
-import ProductDetails from '../components/ProductDetails';
+import ProductDetails from './ProductDetailsOld';
 import { db } from '../utils/firebase';
 import '@testing-library/jest-dom';  // This ensures jest-dom matchers are available
 
