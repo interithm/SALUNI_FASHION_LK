@@ -198,8 +198,9 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     setSize(selectedSize);
   };
 
-  const handleColorClick = (selectedColor: string) => {
+  const handleColorClick = (selectedColor: string ,  selectedUrl: string) => {
     setColor(selectedColor);
+    setMainImage(selectedUrl);
   };
 
   if (!product) {
@@ -413,7 +414,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
                           key={index}
                           className={`w-8 h-8 rounded-full border-2 ${color === colorOption.color ? 'border-blue-600 ring-2 ring-blue-200' : 'border-gray-300'} flex items-center justify-center transition-transform transform hover:scale-110 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                           style={{ backgroundColor: colorOption.code }}
-                          onClick={() => handleColorClick(colorOption.color)}
+                          onClick={() => handleColorClick(colorOption.color , colorOption.url)}
                           aria-label={colorOption.code}
                           title={colorOption.code} // Add tooltip for better accessibility
                         >
