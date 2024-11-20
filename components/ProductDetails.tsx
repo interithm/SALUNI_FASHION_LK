@@ -131,7 +131,8 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         let sizeChartUrl = "";
         if (!sizeChartSnapshot.empty) {
           const sizeChartData = sizeChartSnapshot.docs[0].data();
-          sizeChartUrl = await getImageDownloadURL(sizeChartData.Server_Path);
+          const serverPath = sizeChartData.Server_Path;
+          sizeChartUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`);
         }
   
         // Update product data
