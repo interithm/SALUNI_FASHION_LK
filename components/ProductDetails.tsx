@@ -43,6 +43,14 @@ type Product = {
   code: string;
 };
 
+type ColorCodes = {
+
+  code: string;
+  color:string;
+  url:string;
+
+
+}
 
 
 async function getImageDownloadURL(serverPath: string) {
@@ -67,7 +75,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
   const [thumsizechart, setSizechart] = useState<string>('');
-  const [colorNamesArray, setColorNamesArray] = useState([])
+  const [colorNamesArray, setColorNamesArray] = useState<ColorCodes[]>([])
 
   const router = useRouter();
 
