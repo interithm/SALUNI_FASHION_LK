@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { doc, getDoc, collection } from 'firebase/firestore';
+import { doc, getDoc, collection , query , getDocs , where, orderBy } from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import Image from 'next/image';
 import SizeChart from './common/SizeChart';
@@ -12,7 +12,7 @@ import { ref, getStorage, getDownloadURL } from 'firebase/storage';
 import ProductDetailsLoading from './common/ProductDetailsLoading';
 import { Heart } from 'lucide-react';
 import Reviews from './Reviews';
-const orgDocId = "20240711-1011-SaluniFashion";
+const orgDocId = "Interithn_T7_2024_11_11";
 const storage = getStorage();
 
 type ProductDetailsProps = {
@@ -45,9 +45,9 @@ type Product = {
 
 
 
-async function getImageDownloadURL(imagePath: string) {
+async function getImageDownloadURL(serverPath: string) {
   try {
-    const imageRef = ref(storage, imagePath);
+    const imageRef = ref(storage, serverPath);
     const imageUrl = await getDownloadURL(imageRef);
     return imageUrl;
   } catch (error) {
@@ -73,41 +73,91 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const productDocRef = doc(
-        collection(doc(db, "organizations", orgDocId), "items"),
-        productId
-      );
-      const productDoc = await getDoc(productDocRef);
-      if (productDoc.exists()) {
+      try {
+        // Fetch product document
+        const productDocRef = doc(
+          collection(doc(db, "organizations", orgDocId), "items"),
+          productId
+        );
+        const productDoc = await getDoc(productDocRef);
+  
+        if (!productDoc.exists()) {
+          console.error("Product not found");
+          return;
+        }
+  
         const productData = productDoc.data() as Product;
         const ID = productData.Item_ID_Auto.toString();
-        const formattedProductId = ID.replace(/\//g, '_');
-        const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product_${formattedProductId}.png`);
-        const imageUrl2 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product2_${formattedProductId}.png`);
-        const imageUrl3 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product3_${formattedProductId}.png`);
-        const imageUrl4 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product4_${formattedProductId}.png`);
-        const sizeChart = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/SizeCharts/Product_${formattedProductId}.png`);
-
-        productData.imageUrl = imageUrl;
-        productData.imageUrl2 = imageUrl2;
-        productData.imageUrl3 = imageUrl3;
-        productData.imageUrl4 = imageUrl4;
-        productData.sizeChart = sizeChart;
-        // productData.colorsarray = colorsarray;
-
+  
+        console.log("ID:", ID);
+  
+        // Get reference to Firestore collection
+        const ImageRef = collection(doc(db, "organizations", orgDocId), "image_files");
+  
+        // Build queries
+        const ImageQuery = query(
+          ImageRef,
+          where("Item_AutoID", "==", ID),
+          where("ImgSection", "==", "ITEM_IMAGE"),
+          orderBy("ImgNo", "asc")
+        );
+  
+        const SizeChartQuery = query(
+          ImageRef,
+          where("Item_AutoID", "==", ID),
+          where("ImgSection", "==", "ITEM_SIZE_CHART")
+        );
+  
+        // Fetch image data
+        const imageSnapshot = await getDocs(ImageQuery);
+        const sizeChartSnapshot = await getDocs(SizeChartQuery);
+  
+        if (imageSnapshot.empty) {
+          console.log("No images found for this product.");
+          return;
+        }
+  
+        // Map image URLs
+        const imageUrls: string[] = [];
+        for (const imageDoc of imageSnapshot.docs) {
+          const imageData = imageDoc.data();
+          const serverPath = imageData.Server_Path;
+          const downloadUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`); // Replace with actual path logic
+          imageUrls.push(downloadUrl);
+          console.log("Images",downloadUrl)
+        }
+  
+        // Get size chart URL (if any)
+        let sizeChartUrl = "";
+        if (!sizeChartSnapshot.empty) {
+          const sizeChartData = sizeChartSnapshot.docs[0].data();
+          sizeChartUrl = await getImageDownloadURL(sizeChartData.Server_Path);
+        }
+  
+        // Update product data
+        productData.imageUrl = imageUrls[0] || "";
+        productData.imageUrl2 = imageUrls[1] || "";
+        productData.imageUrl3 = imageUrls[2] || "";
+        productData.imageUrl4 = imageUrls[3] || "";
+        productData.sizeChart = sizeChartUrl;
+  
         setProduct(productData);
-        setMainImage(imageUrl);
-        setThumbnail1(imageUrl);
-        setThumbnail2(imageUrl2);
-        setThumbnail3(imageUrl3);
-        setThumbnail4(imageUrl4);
-        setSizechart(sizeChart);
-        // useColors(colorsarray);
+        setMainImage(imageUrls[0] || "");
+        setThumbnail1(imageUrls[0] || "");
+        setThumbnail2(imageUrls[1] || "");
+        setThumbnail3(imageUrls[2] || "");
+        setThumbnail4(imageUrls[3] || "");
+        setSizechart(sizeChartUrl);
+  
+       
+      } catch (error) {
+        console.error("Error fetching product or images:", error);
       }
     };
-
+  
     fetchProduct();
   }, [productId]);
+  
 
   const handleImageClick = (src: string) => {
     setMainImage(src);
