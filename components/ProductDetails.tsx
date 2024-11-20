@@ -67,7 +67,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
   const [thumsizechart, setSizechart] = useState<string>('');
-  const [colorNameArray, setColorNamesArray] = useState()
+  const [colorNamesArray, setColorNamesArray] = useState([])
 
   const router = useRouter();
 
@@ -80,20 +80,20 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           productId
         );
         const productDoc = await getDoc(productDocRef);
-
+  
         if (!productDoc.exists()) {
           console.error("Product not found");
           return;
         }
-
+  
         const productData = productDoc.data() as Product;
         const ID = productData.Item_ID_Auto.toString();
-
+  
         console.log("ID:", ID);
-
+  
         // Get reference to Firestore collection
         const ImageRef = collection(doc(db, "organizations", orgDocId), "image_files");
-
+  
         // Build queries for product images & size chart
         const ImageQuery = query(
           ImageRef,
@@ -101,32 +101,58 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           where("ImgSection", "==", "ITEM_IMAGE"),
           orderBy("ImgNo", "asc")
         );
-
+  
         const SizeChartQuery = query(
           ImageRef,
           where("Item_AutoID", "==", ID),
           where("ImgSection", "==", "ITEM_SIZE_CHART")
         );
-
+  
         // Fetch image data
         const imageSnapshot = await getDocs(ImageQuery);
         const sizeChartSnapshot = await getDocs(SizeChartQuery);
-
+  
         if (imageSnapshot.empty) {
           console.log("No images found for this product.");
           return;
         }
-
-        // Map image URLs
+  
+        // Prepare to store image URLs and color data
         const imageUrls: string[] = [];
+        const colorNames: string[] = [];
+        const colorCodes: string[] = [];
+  
+        // Map image URLs and colors
         for (const imageDoc of imageSnapshot.docs) {
           const imageData = imageDoc.data();
           const serverPath = imageData.Server_Path;
+          const colorName = imageData.ColorName || "Unknown Color";
+          const colorCode = imageData.ColorCode || "Unknown Code";
+  
           const downloadUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`); // Replace with actual path logic
           imageUrls.push(downloadUrl);
-          console.log("Images", downloadUrl)
+          colorNames.push(colorName);
+          colorCodes.push(colorCode);
+  
+          // Output the image and color data
+          console.log("Image URL:", downloadUrl);
+          console.log("Color Name:", colorName);
+          console.log("Color Code:", colorCode);
         }
-
+  
+        // Combine colors and codes into a single array of objects
+        const colorsArray = colorNames.reduce<{ color: string; code: string }[]>(
+          (accumulator, currentColor, index) => {
+            return accumulator.concat({
+              color: currentColor,
+              code: colorCodes[index]
+            });
+          },
+          [] // Start with an empty array
+        );
+  
+        console.log("Colors Array:", colorsArray);
+  
         // Get size chart URL (if any)
         let sizeChartUrl = "";
         if (!sizeChartSnapshot.empty) {
@@ -134,14 +160,14 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           const serverPath = sizeChartData.Server_Path;
           sizeChartUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`);
         }
-
+  
         // Update product data
         productData.imageUrl = imageUrls[0] || "";
         productData.imageUrl2 = imageUrls[1] || "";
         productData.imageUrl3 = imageUrls[2] || "";
         productData.imageUrl4 = imageUrls[3] || "";
         productData.sizeChart = sizeChartUrl;
-
+  
         setProduct(productData);
         setMainImage(imageUrls[0] || "");
         setThumbnail1(imageUrls[0] || "");
@@ -149,15 +175,17 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         setThumbnail3(imageUrls[2] || "");
         setThumbnail4(imageUrls[3] || "");
         setSizechart(sizeChartUrl);
-
-
+  
+        // Output the colors array to the UI or product data
+        setColorNamesArray(colorsArray); // You need to define a state for this
       } catch (error) {
         console.error("Error fetching product or images:", error);
       }
     };
-
+  
     fetchProduct();
   }, [productId]);
+  
 
 
   const handleImageClick = (src: string) => {
@@ -241,18 +269,18 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     localStorage.setItem('wishlist', JSON.stringify(itemsArray));
   };
 
-  const colorNamesArray = product.colorNames.split(";;");
-  const colorCodesArray = product.colorCodes.split(";;");
+  //  const colorNamesArrays = product.colorNames.split(";;");
+  //  const colorCodesArray = product.colorCodes.split(";;");
 
-  const result = colorNamesArray.reduce<{ color: string; code: string }[]>((accumulator, currentColor, index) => {
-    return accumulator.concat({
-      color: currentColor,
-      code: colorCodesArray[index]
-    });
-  }, []); // Start with an empty array of the correct type
+  // const result = colorNamesArray.reduce<{ color: string; code: string }[]>((accumulator, currentColor, index) => {
+  //   return accumulator.concat({
+  //     color: currentColor,
+  //     code: colorCodesArray[index]
+  //   });
+  // }, []); // Start with an empty array of the correct type
 
 
-  console.log(result);
+  console.log(colorNamesArray);
 
 
 
@@ -378,11 +406,11 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
                   <div className="flex border-t border-gray-200 py-2">
                     <span className="text-gray-500 font-Roboto text-sm mar">Color</span>
                     <span className="ml-auto flex space-x-2">
-                      {result.map((colorOption, index) => (
+                      {colorNamesArray.map((colorOption, index) => (
                         <button
                           key={index}
                           className={`w-8 h-8 rounded-full border-2 ${color === colorOption.color ? 'border-blue-600 ring-2 ring-blue-200' : 'border-gray-300'} flex items-center justify-center transition-transform transform hover:scale-110 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                          style={{ backgroundColor: colorOption.color }}
+                          style={{ backgroundColor: colorOption.code }}
                           onClick={() => handleColorClick(colorOption.color)}
                           aria-label={colorOption.code}
                           title={colorOption.code} // Add tooltip for better accessibility
