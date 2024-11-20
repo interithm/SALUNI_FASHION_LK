@@ -108,7 +108,7 @@ const ProductList = (props) => {
           Discount={product.Discount}
           Sales_Price={product.Sales_Price}
           Eng_Name={product.Eng_Name}
-          UUID={product.Item_ID_Auto}
+          UUID={product.UUID}
           imageUrl={product.imageUrl}
           imageUrl2={product.imageUrl2}
           width={200} // Example width
