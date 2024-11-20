@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { doc, getDoc, collection , query , getDocs , where, orderBy } from 'firebase/firestore';
+import { doc, getDoc, collection, query, getDocs, where, orderBy } from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import Image from 'next/image';
 import SizeChart from './common/SizeChart';
@@ -80,43 +80,43 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           productId
         );
         const productDoc = await getDoc(productDocRef);
-  
+
         if (!productDoc.exists()) {
           console.error("Product not found");
           return;
         }
-  
+
         const productData = productDoc.data() as Product;
         const ID = productData.Item_ID_Auto.toString();
-  
+
         console.log("ID:", ID);
-  
+
         // Get reference to Firestore collection
         const ImageRef = collection(doc(db, "organizations", orgDocId), "image_files");
-  
-        // Build queries
+
+        // Build queries for product images & size chart
         const ImageQuery = query(
           ImageRef,
           where("Item_AutoID", "==", ID),
           where("ImgSection", "==", "ITEM_IMAGE"),
           orderBy("ImgNo", "asc")
         );
-  
+
         const SizeChartQuery = query(
           ImageRef,
           where("Item_AutoID", "==", ID),
           where("ImgSection", "==", "ITEM_SIZE_CHART")
         );
-  
+
         // Fetch image data
         const imageSnapshot = await getDocs(ImageQuery);
         const sizeChartSnapshot = await getDocs(SizeChartQuery);
-  
+
         if (imageSnapshot.empty) {
           console.log("No images found for this product.");
           return;
         }
-  
+
         // Map image URLs
         const imageUrls: string[] = [];
         for (const imageDoc of imageSnapshot.docs) {
@@ -124,9 +124,9 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           const serverPath = imageData.Server_Path;
           const downloadUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`); // Replace with actual path logic
           imageUrls.push(downloadUrl);
-          console.log("Images",downloadUrl)
+          console.log("Images", downloadUrl)
         }
-  
+
         // Get size chart URL (if any)
         let sizeChartUrl = "";
         if (!sizeChartSnapshot.empty) {
@@ -134,14 +134,14 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           const serverPath = sizeChartData.Server_Path;
           sizeChartUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`);
         }
-  
+
         // Update product data
         productData.imageUrl = imageUrls[0] || "";
         productData.imageUrl2 = imageUrls[1] || "";
         productData.imageUrl3 = imageUrls[2] || "";
         productData.imageUrl4 = imageUrls[3] || "";
         productData.sizeChart = sizeChartUrl;
-  
+
         setProduct(productData);
         setMainImage(imageUrls[0] || "");
         setThumbnail1(imageUrls[0] || "");
@@ -149,16 +149,16 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         setThumbnail3(imageUrls[2] || "");
         setThumbnail4(imageUrls[3] || "");
         setSizechart(sizeChartUrl);
-  
-       
+
+
       } catch (error) {
         console.error("Error fetching product or images:", error);
       }
     };
-  
+
     fetchProduct();
   }, [productId]);
-  
+
 
   const handleImageClick = (src: string) => {
     setMainImage(src);
@@ -176,7 +176,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     return <ProductDetailsLoading />
   }
 
-   const addToCart = (product: Product) => {
+  const addToCart = (product: Product) => {
     console.log("Order is processing", product);
 
     let existingItems = localStorage.getItem('Items');
@@ -210,7 +210,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   };
 
   const addToWishList = (product: Product) => {
-   console.log("WishList is processing", product);
+    console.log("WishList is processing", product);
 
     let existingItems = localStorage.getItem('wishlist');
     let itemsArray;
@@ -415,14 +415,14 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
                     </span>
 
                     <div className="flex space-x-5">
-                    <button className="btn btn-outline btn-primary  hover:btn-primary  text-sm sm:text-base  px-4 py-2 sm:px-6 sm:py-3  transition-all duration-300 ease-in-out  flex items-center justify-center gap-2 group" onClick={() => addToWishList(product)}>
-                    <Heart 
-                   size={20} 
-                     className="
+                      <button className="btn btn-outline btn-primary  hover:btn-primary  text-sm sm:text-base  px-4 py-2 sm:px-6 sm:py-3  transition-all duration-300 ease-in-out  flex items-center justify-center gap-2 group" onClick={() => addToWishList(product)}>
+                        <Heart
+                          size={20}
+                          className="
                      transform group-hover:scale-110 group-hover:fill-current
                      transition-all duration-300 ease-in-out "/>
-                   
-                     </button>
+
+                      </button>
                       <button className="btn btn-outline btn-primary  hover:btn-primary  text-sm sm:text-base  px-4 py-2 sm:px-6 sm:py-3  transition-all duration-300 ease-in-out  flex items-center justify-center gap-2 group" onClick={() => addToCart(product)}>
                         Add To
                         <svg
@@ -446,10 +446,10 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
               )}
             </div>
           </div>
-       
+
           <Reviews productId={productId} />
         </div>
-        
+
       </section>
     </>
   );
