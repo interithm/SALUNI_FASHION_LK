@@ -8,7 +8,7 @@ import { formatPrice } from "@utils/price";
 import { useState } from 'react';
 
 
-const ProductCard = ({ UUID, imageUrl, height, width, Eng_Name, Discount, Sales_Price, imageUrl2 }) => {
+const ProductCard = ({ UUID, imageUrl, height, width, Eng_Name, Discount, Sales_Price, imageUrl2}) => {
   const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
   const router = useRouter();
 
@@ -19,9 +19,10 @@ const ProductCard = ({ UUID, imageUrl, height, width, Eng_Name, Discount, Sales_
   const handleMouseOut = () => {
     setCurrentImageUrl(imageUrl);
   };
-
+  const ID = UUID.toString();
+  const formattedProductId = ID.replace(/\//g, '_');
   return (
-    <div className="custom-card" onClick={() => router.push(`/product/${UUID}`)}>
+    <div className="custom-card" onClick={() => router.push(`/product/${formattedProductId}`)}>
       <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
         <Image src={currentImageUrl} alt="product image" priority={false} loading="lazy" height='200' width='200' />
       </figure>

@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { doc, getDoc, collection, query, getDocs, where, orderBy } from 'firebase/firestore';
+import { doc, getDoc, collection } from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import Image from 'next/image';
 import SizeChart from './common/SizeChart';
@@ -12,7 +12,7 @@ import { ref, getStorage, getDownloadURL } from 'firebase/storage';
 import ProductDetailsLoading from './common/ProductDetailsLoading';
 import { Heart } from 'lucide-react';
 import Reviews from './Reviews';
-const orgDocId = "Interithn_T7_2024_11_11";
+const orgDocId = "20240711-1011-SaluniFashion";
 const storage = getStorage();
 
 type ProductDetailsProps = {
@@ -43,19 +43,11 @@ type Product = {
   code: string;
 };
 
-type ColorCodes = {
-
-  code: string;
-  color:string;
-  url:string;
 
 
-}
-
-
-async function getImageDownloadURL(serverPath: string) {
+async function getImageDownloadURL(imagePath: string) {
   try {
-    const imageRef = ref(storage, serverPath);
+    const imageRef = ref(storage, imagePath);
     const imageUrl = await getDownloadURL(imageRef);
     return imageUrl;
   } catch (error) {
@@ -75,128 +67,47 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
   const [thumsizechart, setSizechart] = useState<string>('');
-  const [colorNamesArray, setColorNamesArray] = useState<ColorCodes[]>([])
+  const [colorNameArray, setColorNamesArray] = useState()
 
   const router = useRouter();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      try {
-        // Fetch product document
-        const productDocRef = doc(
-          collection(doc(db, "organizations", orgDocId), "items"),
-          productId
-        );
-        const productDoc = await getDoc(productDocRef);
-  
-        if (!productDoc.exists()) {
-          console.error("Product not found");
-          return;
-        }
-  
+      const productDocRef = doc(
+        collection(doc(db, "organizations", orgDocId), "items"),
+        productId
+      );
+      const productDoc = await getDoc(productDocRef);
+      if (productDoc.exists()) {
         const productData = productDoc.data() as Product;
         const ID = productData.Item_ID_Auto.toString();
-  
-        console.log("ID:", ID);
-  
-        // Get reference to Firestore collection
-        const ImageRef = collection(doc(db, "organizations", orgDocId), "image_files");
-  
-        // Build queries for product images & size chart
-        const ImageQuery = query(
-          ImageRef,
-          where("Item_AutoID", "==", ID),
-          where("ImgSection", "==", "ITEM_IMAGE"),
-          orderBy("ImgNo", "asc")
-        );
-  
-        const SizeChartQuery = query(
-          ImageRef,
-          where("Item_AutoID", "==", ID),
-          where("ImgSection", "==", "ITEM_SIZE_CHART")
-        );
-  
-        // Fetch image data
-        const imageSnapshot = await getDocs(ImageQuery);
-        const sizeChartSnapshot = await getDocs(SizeChartQuery);
-  
-        if (imageSnapshot.empty) {
-          console.log("No images found for this product.");
-          return;
-        }
-  
-        // Prepare to store image URLs and color data
-        const imageUrls: string[] = [];
-        const colorNames: string[] = [];
-        const colorCodes: string[] = [];
+        const formattedProductId = ID.replace(/\//g, '_');
+        const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product_${formattedProductId}.png`);
+        const imageUrl2 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product2_${formattedProductId}.png`);
+        const imageUrl3 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product3_${formattedProductId}.png`);
+        const imageUrl4 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product4_${formattedProductId}.png`);
+        const sizeChart = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/SizeCharts/Product_${formattedProductId}.png`);
 
-  
-        // Map image URLs and colors
-        for (const imageDoc of imageSnapshot.docs) {
-          const imageData = imageDoc.data();
-          const serverPath = imageData.Server_Path;
-          const colorName = imageData.ColorName || "Unknown Color";
-          const colorCode = imageData.ColorCode || "Unknown Code";
-  
-          const downloadUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`); // Replace with actual path logic
-          imageUrls.push(downloadUrl);
-          colorNames.push(colorName);
-          colorCodes.push(colorCode);
-  
-          // Output the image and color data
-          console.log("Image URL:", downloadUrl);
-          console.log("Color Name:", colorName);
-          console.log("Color Code:", colorCode);
-        }
-  
-        // Combine colors and codes into a single array of objects
-        const colorsArray = colorNames.reduce<{ color: string; code: string; url: string; }[]>(
-          (accumulator, currentColor, index) => {
-            return accumulator.concat({
-              color: currentColor,
-              code: colorCodes[index],
-              url: imageUrls[index]
-            });
-          },
-          [] // Start with an empty array
-        );
-  
-        console.log("Colors Array:", colorsArray);
-  
-        // Get size chart URL (if any)
-        let sizeChartUrl = "";
-        if (!sizeChartSnapshot.empty) {
-          const sizeChartData = sizeChartSnapshot.docs[0].data();
-          const serverPath = sizeChartData.Server_Path;
-          sizeChartUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`);
-        }
-  
-        // Update product data
-        productData.imageUrl = imageUrls[0] || "";
-        productData.imageUrl2 = imageUrls[1] || "";
-        productData.imageUrl3 = imageUrls[2] || "";
-        productData.imageUrl4 = imageUrls[3] || "";
-        productData.sizeChart = sizeChartUrl;
-  
+        productData.imageUrl = imageUrl;
+        productData.imageUrl2 = imageUrl2;
+        productData.imageUrl3 = imageUrl3;
+        productData.imageUrl4 = imageUrl4;
+        productData.sizeChart = sizeChart;
+        // productData.colorsarray = colorsarray;
+
         setProduct(productData);
-        setMainImage(imageUrls[0] || "");
-        setThumbnail1(imageUrls[0] || "");
-        setThumbnail2(imageUrls[1] || "");
-        setThumbnail3(imageUrls[2] || "");
-        setThumbnail4(imageUrls[3] || "");
-        setSizechart(sizeChartUrl);
-  
-        // Output the colors array to the UI or product data
-        setColorNamesArray(colorsArray); // You need to define a state for this
-      } catch (error) {
-        console.error("Error fetching product or images:", error);
+        setMainImage(imageUrl);
+        setThumbnail1(imageUrl);
+        setThumbnail2(imageUrl2);
+        setThumbnail3(imageUrl3);
+        setThumbnail4(imageUrl4);
+        setSizechart(sizeChart);
+        // useColors(colorsarray);
       }
     };
-  
+
     fetchProduct();
   }, [productId]);
-  
-
 
   const handleImageClick = (src: string) => {
     setMainImage(src);
@@ -206,16 +117,15 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     setSize(selectedSize);
   };
 
-  const handleColorClick = (selectedColor: string ,  selectedUrl: string) => {
+  const handleColorClick = (selectedColor: string) => {
     setColor(selectedColor);
-    setMainImage(selectedUrl);
   };
 
   if (!product) {
     return <ProductDetailsLoading />
   }
 
-  const addToCart = (product: Product) => {
+   const addToCart = (product: Product) => {
     console.log("Order is processing", product);
 
     let existingItems = localStorage.getItem('Items');
@@ -249,7 +159,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   };
 
   const addToWishList = (product: Product) => {
-    console.log("WishList is processing", product);
+   console.log("WishList is processing", product);
 
     let existingItems = localStorage.getItem('wishlist');
     let itemsArray;
@@ -280,18 +190,18 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     localStorage.setItem('wishlist', JSON.stringify(itemsArray));
   };
 
-  //  const colorNamesArrays = product.colorNames.split(";;");
-  //  const colorCodesArray = product.colorCodes.split(";;");
+  const colorNamesArray = product.colorNames.split(";;");
+  const colorCodesArray = product.colorCodes.split(";;");
 
-  // const result = colorNamesArray.reduce<{ color: string; code: string }[]>((accumulator, currentColor, index) => {
-  //   return accumulator.concat({
-  //     color: currentColor,
-  //     code: colorCodesArray[index]
-  //   });
-  // }, []); // Start with an empty array of the correct type
+  const result = colorNamesArray.reduce<{ color: string; code: string }[]>((accumulator, currentColor, index) => {
+    return accumulator.concat({
+      color: currentColor,
+      code: colorCodesArray[index]
+    });
+  }, []); // Start with an empty array of the correct type
 
 
-  console.log(colorNamesArray);
+  console.log(result);
 
 
 
@@ -417,12 +327,12 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
                   <div className="flex border-t border-gray-200 py-2">
                     <span className="text-gray-500 font-Roboto text-sm mar">Color</span>
                     <span className="ml-auto flex space-x-2">
-                      {colorNamesArray.map((colorOption, index) => (
+                      {result.map((colorOption, index) => (
                         <button
                           key={index}
                           className={`w-8 h-8 rounded-full border-2 ${color === colorOption.color ? 'border-blue-600 ring-2 ring-blue-200' : 'border-gray-300'} flex items-center justify-center transition-transform transform hover:scale-110 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                          style={{ backgroundColor: colorOption.code }}
-                          onClick={() => handleColorClick(colorOption.color , colorOption.url)}
+                          style={{ backgroundColor: colorOption.color }}
+                          onClick={() => handleColorClick(colorOption.color)}
                           aria-label={colorOption.code}
                           title={colorOption.code} // Add tooltip for better accessibility
                         >
@@ -454,14 +364,14 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
                     </span>
 
                     <div className="flex space-x-5">
-                      <button className="btn btn-outline btn-primary  hover:btn-primary  text-sm sm:text-base  px-4 py-2 sm:px-6 sm:py-3  transition-all duration-300 ease-in-out  flex items-center justify-center gap-2 group" onClick={() => addToWishList(product)}>
-                        <Heart
-                          size={20}
-                          className="
+                    <button className="btn btn-outline btn-primary  hover:btn-primary  text-sm sm:text-base  px-4 py-2 sm:px-6 sm:py-3  transition-all duration-300 ease-in-out  flex items-center justify-center gap-2 group" onClick={() => addToWishList(product)}>
+                    <Heart 
+                   size={20} 
+                     className="
                      transform group-hover:scale-110 group-hover:fill-current
                      transition-all duration-300 ease-in-out "/>
-
-                      </button>
+                   
+                     </button>
                       <button className="btn btn-outline btn-primary  hover:btn-primary  text-sm sm:text-base  px-4 py-2 sm:px-6 sm:py-3  transition-all duration-300 ease-in-out  flex items-center justify-center gap-2 group" onClick={() => addToCart(product)}>
                         Add To
                         <svg
@@ -485,10 +395,10 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
               )}
             </div>
           </div>
-
+       
           <Reviews productId={productId} />
         </div>
-
+        
       </section>
     </>
   );
