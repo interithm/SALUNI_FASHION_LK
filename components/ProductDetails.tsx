@@ -121,6 +121,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         const imageUrls: string[] = [];
         const colorNames: string[] = [];
         const colorCodes: string[] = [];
+
   
         // Map image URLs and colors
         for (const imageDoc of imageSnapshot.docs) {
@@ -141,11 +142,12 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         }
   
         // Combine colors and codes into a single array of objects
-        const colorsArray = colorNames.reduce<{ color: string; code: string }[]>(
+        const colorsArray = colorNames.reduce<{ color: string; code: string; url: string; }[]>(
           (accumulator, currentColor, index) => {
             return accumulator.concat({
               color: currentColor,
-              code: colorCodes[index]
+              code: colorCodes[index],
+              url: imageUrls[index]
             });
           },
           [] // Start with an empty array
