@@ -20,6 +20,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.7",
+    "color-name-list": "^11.0.0",
     "cors": "^2.8.5",
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-class-names": "^8.1.8",
