@@ -1,96 +1,34 @@
-'use client';
+// 'use client'
+// import React, { useState } from "react";
+// import colorNameList from "../../data/colornames.json";
 
-import { useState } from 'react';
 
-const PaymentPage = () => {
-  const [formData, setFormData] = useState({
-    amount: '',
-    reference: '',
-    customer_first_name: '',
-    customer_last_name: '',
-    customer_phone_number: '',
-    customer_email: '',
-  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+// function ColorNameFinder() {
+//   const [colorCode, setColorCode] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+//   const getColorName = (hex: string) => {
+//     const match = colorNameList.find(
+//       (color) => color.hex.toLowerCase() === hex.toLowerCase()
+//     );
+//     return match ? match.name : "Unknown color";
+//   };
+//   console.log(colorNameList); // Verify what is being imported
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h1>Color Name Finder</h1>
+//       <input
+//         type="text"
+//         value={colorCode}
+//         onChange={(e) => setColorCode(e.target.value)}
+//         placeholder="Enter Hex Color Code"
+//         style={{ marginRight: "10px" }}
+//       />
+//       <p style={{ marginTop: "20px" }}>
+//         <strong>Color Name:</strong> {getColorName(colorCode)}
+//       </p>
+//     </div>
+//   );
+// }
 
-    const response = await fetch('/api/onepay', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await response.json();
-
-    if (data?.data?.gateway?.redirect_url) {
-      console.log('Payment success:', data);
-      window.location.href = data.data.gateway.redirect_url; // Redirect to the Onepay payment page
-    } else {
-      console.error('Payment error:', data);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="number"
-        name="amount"
-        value={formData.amount}
-        onChange={handleChange}
-        placeholder="Amount"
-        required
-      />
-      <input
-        type="text"
-        name="reference"
-        value={formData.reference}
-        onChange={handleChange}
-        placeholder="Reference ID"
-        required
-      />
-      <input
-        type="text"
-        name="customer_first_name"
-        value={formData.customer_first_name}
-        onChange={handleChange}
-        placeholder="First Name"
-        required
-      />
-      <input
-        type="text"
-        name="customer_last_name"
-        value={formData.customer_last_name}
-        onChange={handleChange}
-        placeholder="Last Name"
-        required
-      />
-      <input
-        type="text"
-        name="customer_phone_number"
-        value={formData.customer_phone_number}
-        onChange={handleChange}
-        placeholder="Phone Number"
-        required
-      />
-      <input
-        type="email"
-        name="customer_email"
-        value={formData.customer_email}
-        onChange={handleChange}
-        placeholder="Email"
-        required
-      />
-      <button type="submit">Pay Now</button>
-    </form>
-  );
-};
-
-export default PaymentPage;
+// export default ColorNameFinder;
