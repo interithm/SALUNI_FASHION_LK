@@ -21,10 +21,10 @@ type Product = {
   Item_ID_Auto: number
 };
 
-const orgDocId = "Interithn_T7_2024_11_11";
+const orgDocId = "20241118-1530-SaluniFashion";
 
 
-const defaultImageUrl ='https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/Interithn_T7_2024_11_11%2FImages%2FProducts%2FbackupImage.jpg?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629' // Replace with your default image URL
+const defaultImageUrl ='https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/20241118-1530-SaluniFashion%2FImages%2FProducts%2FbackupImage.jpg?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629' // Replace with your default image URL
 const storage = getStorage();
 
 async function getImageDownloadURL(imagePath: string): Promise<string> {

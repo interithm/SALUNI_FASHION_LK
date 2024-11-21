@@ -14,7 +14,7 @@ export default function skirts () {
      order=">="
      limit={12}
      group='Brand'
-     type='maxi-dresses'
+     type='maxi-dress'
      /></MainLayout>
     )
 }
