@@ -53,19 +53,23 @@ const ProductList = (props) => {
       try {
         setLoading(true);
         const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
-
-        const itemsQuery = query(
-          itemsRef,
+        const filters = [
           where("ItemActiveMode", "==", 1),
           where("Deleted", "==", 0),
           where("ShowInSaleInvoice", "==", 1),
           where("Manufacturer", "==", props.category),
           where("Discount", props.order, "0"),
-          where("Brand", "==", props.type),
           orderBy(props.group, "desc"),
-           limit(props.limits)
-        );
-
+          limit(props.limits),
+        ];
+      
+        // Conditionally add the Brand filter if props.type is provided
+        if (props.type) {
+          filters.push(where("Brand", "==", props.type));
+        }
+      
+        // Build the query using the filters
+        const itemsQuery = query(itemsRef, ...filters);
         const querySnapshot = await getDocs(itemsQuery);
         const productsArray: Product[] = [];
 
