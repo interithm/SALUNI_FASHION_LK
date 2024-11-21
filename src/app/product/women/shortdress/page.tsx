@@ -1,21 +1,20 @@
-'use client'
 
+'use client'
 import MainLayout from "@components/layout/MainLayout";
 import React from "react";
-import ProductList from '../../../../components/ProductList';
-import '../../../../src/app/globals.css'
+import ProductList from '../../../../../components/ProductList';
+import '../../../../app/globals.css'
 
 
-
-export default function men () {
+export default function skirts () {
     return (
      <MainLayout> 
      <ProductList
-     category="unisex"
+     category="women"
      order=">="
      limit={12}
      group='Brand'
-     type=''
+     type='short-dress'
      /></MainLayout>
     )
 }
