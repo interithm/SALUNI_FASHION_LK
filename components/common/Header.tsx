@@ -137,7 +137,6 @@ const Header = () => {
               <li><Link href="/product/sale">SALE</Link></li>
               <li className="relative group"><Link href="/product/accessories">ACCESSORIES</Link>
               <ul className="absolute hidden group-hover:block bg-black shadow-lg py-2 text-sm text-white min-w-[150px] max-h-[300px] overflow-y-auto">
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/t-shirts">T Shirts</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/belts">Belts</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/handbags">Hand Bags</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/earrings">Earrings</Link></li>
