@@ -8,10 +8,11 @@ import SizeChart from './common/SizeChart';
 import './Styles/productDetails.css';
 import { formatPrice } from '../utils/price';
 import { ref, getStorage, getDownloadURL } from 'firebase/storage';
-
 import ProductDetailsLoading from './common/ProductDetailsLoading';
 import { Heart } from 'lucide-react';
 import Reviews from './Reviews';
+import { getColorName } from '@utils/colorIdentifier';
+// import colorNameList from "../src/data/colornames.json";
 const orgDocId = "Interithn_T7_2024_11_11";
 const storage = getStorage();
 
@@ -149,11 +150,12 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
           console.log("Color Code:", colorCode);
         }
   
+        // getColorName('#FF5733')
         // Combine colors and codes into a single array of objects
         const colorsArray = colorNames.reduce<{ color: string; code: string; url: string; }[]>(
           (accumulator, currentColor, index) => {
             return accumulator.concat({
-              color: currentColor,
+              color: getColorName(colorCodes[index]),
               code: colorCodes[index],
               url: imageUrls[index]
             });
@@ -196,7 +198,17 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     fetchProduct();
   }, [productId]);
   
-
+// useEffect(() => {
+  
+//    function getColorName(hex) {
+//     const match = colorNameList.find(color => color.hex.toLowerCase() === hex.toLowerCase());
+//     return match ? match.name : "Unknown color";
+//   }
+  
+//   console.log("this is color function",getColorName("#ffffff")); // Output: Some color name (depends on the library)
+  
+  
+// })
 
   const handleImageClick = (src: string) => {
     setMainImage(src);
@@ -292,7 +304,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
 
 
   console.log(colorNamesArray);
-
+  
 
 
   return (
