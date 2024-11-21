@@ -14,7 +14,7 @@ export default function skirts () {
      order=">="
      limit={12}
      group='Brand'
-     type='dresses'
+     type='full-kit'
      /></MainLayout>
     )
 }
