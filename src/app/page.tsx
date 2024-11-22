@@ -15,7 +15,7 @@ export default function Home() {
       <ProductList
         category=""
         order=">="
-        limits={100}
+        limits={12}
         group='Item_ID_Auto'
         type=''
       />
