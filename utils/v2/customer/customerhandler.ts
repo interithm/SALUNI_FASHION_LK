@@ -48,7 +48,12 @@ const customerData = {
         Total_Orders: billingDetails.totalOrders || 1,
         Total_Spent: billingDetails.totalSpent || 120,
         UUID: billingDetails.uuid || "default_Id",
-        VehicleNo: billingDetails.vehicleNo || ""
+        VehicleNo: billingDetails.vehicleNo || "",
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+         
       };
 
       saveCustomerHandler(customerData);

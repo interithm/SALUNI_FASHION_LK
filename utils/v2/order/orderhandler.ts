@@ -20,6 +20,10 @@ export const orderHandler = async (cartItems , orderID , customerID , billingDet
             orderID: orderID,
             orderDate: new Date(),
             totalAmount: cartItems.reduce((total, item) => total + item.Sales_Price * item.quantity, 0),
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
         };
 
         // Create a new document in the 'orders' collection
@@ -41,6 +45,10 @@ export const orderHandler = async (cartItems , orderID , customerID , billingDet
                 lineTotal: item.Sales_Price * item.quantity,
                 remark: "",
                 Deleted: 0,
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
             };
 
             // Add each order item to a sub-collection within the order

@@ -29,7 +29,11 @@ export const paymenthandler = async (onlinePaymentData , paymentID , orderID , c
         Deleted: onlinePaymentData.deleted || 0,
         InvBill_No: orderID,
         Note: onlinePaymentData.note || "",
-        UUID: onlinePaymentData.uuid || "03e6b735-b6e1-4759-8323-6017b2e4af3e"
+        UUID: onlinePaymentData.uuid || "03e6b735-b6e1-4759-8323-6017b2e4af3e",
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
     };
     savePaymentHandler(paymentData)
 
