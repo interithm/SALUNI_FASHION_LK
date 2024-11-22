@@ -23,7 +23,7 @@ type Product = {
 
 const orgDocId = "20241118-1530-SaluniFashion";
 
-const defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/20241118-1530-SaluniFashion%2FImages%2FProducts%2FbackupImage.jpg?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629';
+const defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/20241118-1530-SaluniFashion%2FImages%2Fdefault%2Fdefault.png?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629';
 const storage = getStorage();
 
 async function getImageDownloadURL(imagePath: string): Promise<string> {
