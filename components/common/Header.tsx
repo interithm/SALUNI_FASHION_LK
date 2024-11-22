@@ -37,18 +37,19 @@ const Header = () => {
                 <li><Link href="/">HOME</Link></li>
                 <li>
                   <details>
-                    <summary>MEN</summary>
+                    <summary><Link href="/product/men">MEN</Link></summary>
                     <ul className="p-2">
                       <li><Link href="/product/men/shirts">Shirts</Link></li>
                       <li><Link href="/product/men/trousers">Trousers</Link></li>
                       <li><Link href="/product/men/t-shirts">T-Shirts</Link></li>
-                      <li><Link href="/product/men/shorts">Shorts</Link></li>
+                      <li><Link href="/product/men/denim">Denim</Link></li>
+                      <li><Link href="/product/men/workwear">Work Wear</Link></li>
                     </ul>
                   </details>
                 </li>
                 <li>
                   <details>
-                    <summary>WOMEN</summary>
+                    <summary><Link href="/product/women">WOMEN</Link></summary>
                     <ul className="p-2">
                       <li><Link href="/product/women/shorts">Shorts</Link></li>
                       <li><Link href="/product/women/skirts">Skirts</Link></li>
@@ -56,21 +57,52 @@ const Header = () => {
                       <li><Link href="/product/women/t-shirts">T-Shirts</Link></li>
                       <li><Link href="/product/women/shorts">Shorts</Link></li>
                       <li><Link href="/product/women/pants">Pants</Link></li>
+                      <li><Link href="/product/women/shirts">Shirts</Link></li>
+                      <li><Link href="/product/women/overcoats">OverCoats</Link></li>
                       <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
-                      <li><Link href="/product/women/dresses">Dresses</Link></li>
+                      <li><Link href="/product/women/jumpsuit">JumpSuit</Link></li>
+                      <li><Link href="/product/women/jackets">Jackets</Link></li>
+                      <li><Link href="/product/women/full-kit">Full Kit</Link></li>
+                      <li><Link href="/product/women/top">Top</Link></li>
+                      <li><Link href="/product/women/workwear">Work Wear</Link></li>
+                      <li><Link href="/product/women/denim">Denim</Link></li>
+                      <li><Link href="/product/women/coat">Coat</Link></li>
+                      
                     </ul>
                   </details>
                 </li>
-                <li><Link href="/product/unisex">UNISEX</Link></li>
+                <li>
+                  <details>
+                  <summary>
+                  <Link href="/product/unisex">UNISEX</Link>
+                  </summary>
+                  <ul className="p-2">
+                      <li><Link href="/product/unisex/shirts">Shirts</Link></li>
+                      <li><Link href="/product/unisex/full-kit">Full Kit</Link></li>
+                      <li><Link href="/product/unisex/pants">Pants</Link></li>
+                      <li><Link href="/product/unisex/t-shirts">T-Shirts</Link></li>
+                  </ul>
+                  </details>
+                  </li>
                 <li><Link href="/product/week">THIS WEEK</Link></li>
                 <li><Link href="/product/sale">SALE</Link></li>
-                <li><Link href="/product/accessories">ACCESSORIES</Link></li>
+                <li>
+                  <details>
+                  <summary><Link href="/product/accessories">ACCESSORIES</Link></summary>
+                  <ul className="p-2">
+                      <li><Link href="/product/accessories/belts">Belts</Link></li>
+                      <li><Link href="/product/accessories/handbags">Hand Bags</Link></li>
+                      <li><Link href="/product/accessories/earrings">Earrings</Link></li>
+                      <li><Link href="/product/accessories/necklaces">Necklaces</Link></li>
+                      <li><Link href="/product/accessories/bracelets">Bracelets</Link></li>
+                      <li><Link href="/product/accessories/rings">Rings</Link></li>
+                      <li><Link href="/product/accessories/jewelry">Jewelry</Link></li>
+                      <li><Link href="/product/accessories/scrunchies">Scrunchies</Link></li>
+                      <li><Link href="/product/accessories/hairclips">Hair Clips</Link></li>
+                      <li><Link href="/product/accessories/slippers">Slippers</Link></li>
+                  </ul>
+                  </details>
+                </li>
                 <li><Link href="/contact">CONTACT</Link></li>
               </ul>
             </div>
@@ -110,16 +142,18 @@ const Header = () => {
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/t-shirts">T Shirts</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/denim">Denim</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/workwear">Work Wear</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/cami-top">Cami Top</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/crop-top">Crop Top</Link></li>
+                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/top">Top</Link></li>
+                  {/* <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/cami-top">Cami Top</Link></li>
+                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/crop-top">Crop Top</Link></li> */}
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/full-kit">Full Kit</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/jackets">Jackets</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/jumpsuit">Jumpsuit</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/maxi-dress">Maxi Dress</Link></li>
+                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/dresses">Dresses</Link></li>
+                  {/* <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/maxi-dress">Maxi Dress</Link></li> */}
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/overcoats">Overcoats</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/shirts">Shirts</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/shortdress">Short Dresses</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/three-quarter-dress">Three-Quarter-Dress</Link></li>
+                  {/* <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/shortdress">Short Dresses</Link></li> */}
+                  {/* <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/three-quarter-dress">Three-Quarter-Dress</Link></li> */}
                   
 
                 </ul>

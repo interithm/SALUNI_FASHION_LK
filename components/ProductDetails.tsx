@@ -13,7 +13,7 @@ import { Heart } from 'lucide-react';
 import Reviews from './Reviews';
 import { getColorName } from '@utils/colorIdentifier';
 // import colorNameList from "../src/data/colornames.json";
-const orgDocId = "Interithn_T7_2024_11_11";
+const orgDocId = "20241118-1530-SaluniFashion";
 const storage = getStorage();
 
 type ProductDetailsProps = {
