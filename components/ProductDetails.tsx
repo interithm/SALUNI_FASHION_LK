@@ -13,7 +13,7 @@ import { Heart } from 'lucide-react';
 import Reviews from './Reviews';
 import { getColorName } from '@utils/colorIdentifier';
 // import colorNameList from "../src/data/colornames.json";
-const orgDocId = "Interithn_T7_2024_11_11";
+const orgDocId = "20241118-1530-SaluniFashion";
 const storage = getStorage();
 
 type ProductDetailsProps = {
@@ -197,18 +197,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   
     fetchProduct();
   }, [productId]);
-  
-// useEffect(() => {
-  
-//    function getColorName(hex) {
-//     const match = colorNameList.find(color => color.hex.toLowerCase() === hex.toLowerCase());
-//     return match ? match.name : "Unknown color";
-//   }
-  
-//   console.log("this is color function",getColorName("#ffffff")); // Output: Some color name (depends on the library)
-  
-  
-// })
+
 
   const handleImageClick = (src: string) => {
     setMainImage(src);
@@ -292,15 +281,6 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
     localStorage.setItem('wishlist', JSON.stringify(itemsArray));
   };
 
-  //  const colorNamesArrays = product.colorNames.split(";;");
-  //  const colorCodesArray = product.colorCodes.split(";;");
-
-  // const result = colorNamesArray.reduce<{ color: string; code: string }[]>((accumulator, currentColor, index) => {
-  //   return accumulator.concat({
-  //     color: currentColor,
-  //     code: colorCodesArray[index]
-  //   });
-  // }, []); // Start with an empty array of the correct type
 
 
   console.log(colorNamesArray);
@@ -448,18 +428,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
                     </span>
 
                   </div>
-                  {/* <span>
-                    
-                    {colorCodesArray}
-                    
-                    
-                    </span>
-                
-                  <div className="flex border-t mb-6 border-gray-200 py-2">    <span>
-                   
-                   {colorNamesArray}
-                  
-                   </span></div> */}
+                 
                   <div className="flex items-center justify-between mt-4">
                     <span className=" title-font font-medium  text-lg sm:text-2xl font-Roboto  tracking-tight  leading-none mb-2  text-red-600">
                       {formatPrice(product.Sales_Price)}
