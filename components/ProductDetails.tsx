@@ -54,14 +54,20 @@ type ColorCodes = {
 }
 
 
-async function getImageDownloadURL(serverPath: string) {
+const defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/20241118-1530-SaluniFashion%2FImages%2Fdefault%2Fdefault.png?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629';
+
+
+async function getImageDownloadURL(serverPath: string): Promise<string> {
+  if (!serverPath) {
+    console.warn("Image path is missing, using default image.");
+    return defaultImageUrl;
+  }
   try {
     const imageRef = ref(storage, serverPath);
-    const imageUrl = await getDownloadURL(imageRef);
-    return imageUrl;
+    return await getDownloadURL(imageRef);
   } catch (error) {
-    console.error("Error getting image download URL:", error);
-    return '';
+    console.error(`Error getting image download URL for path: ${serverPath}`, error);
+    return defaultImageUrl;
   }
 }
 
@@ -121,75 +127,61 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         const imageSnapshot = await getDocs(ImageQuery);
         const sizeChartSnapshot = await getDocs(SizeChartQuery);
   
-        if (imageSnapshot.empty) {
-          console.log("No images found for this product.");
-          return;
-        }
-  
         // Prepare to store image URLs and color data
         const imageUrls: string[] = [];
         const colorNames: string[] = [];
         const colorCodes: string[] = [];
-
   
-        // Map image URLs and colors
-        for (const imageDoc of imageSnapshot.docs) {
-          const imageData = imageDoc.data();
-          const serverPath = imageData.Server_Path;
-          const colorName = imageData.ColorName || "Unknown Color";
-          const colorCode = imageData.ColorCode || "Unknown Code";
+        if (!imageSnapshot.empty) {
+          // Map image URLs and colors
+          for (const imageDoc of imageSnapshot.docs) {
+            const imageData = imageDoc.data();
+            const serverPath = imageData.Server_Path;
+            const colorName = imageData.ColorName || "Unknown Color";
+            const colorCode = imageData.ColorCode || "Unknown Code";
   
-          const downloadUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`); // Replace with actual path logic
-          imageUrls.push(downloadUrl);
-          colorNames.push(colorName);
-          colorCodes.push(colorCode);
-  
-          // Output the image and color data
-          console.log("Image URL:", downloadUrl);
-          console.log("Color Name:", colorName);
-          console.log("Color Code:", colorCode);
+            const downloadUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`);
+            imageUrls.push(downloadUrl);
+            colorNames.push(colorName);
+            colorCodes.push(colorCode);
+          }
+        } else {
+          console.warn("No images found for this product.");
         }
   
-        // getColorName('#FF5733')
         // Combine colors and codes into a single array of objects
-        const colorsArray = colorNames.reduce<{ color: string; code: string; url: string; }[]>(
-          (accumulator, currentColor, index) => {
-            return accumulator.concat({
-              color: getColorName(colorCodes[index]),
-              code: colorCodes[index],
-              url: imageUrls[index]
-            });
-          },
-          [] // Start with an empty array
-        );
+        const colorsArray = colorNames.map((colorName, index) => ({
+          color: getColorName(colorCodes[index]),
+          code: colorCodes[index],
+          url: imageUrls[index] || defaultImageUrl,
+        }));
   
         console.log("Colors Array:", colorsArray);
   
         // Get size chart URL (if any)
-        let sizeChartUrl = "";
+        let sizeChartUrl = defaultImageUrl; // Use a default placeholder
         if (!sizeChartSnapshot.empty) {
           const sizeChartData = sizeChartSnapshot.docs[0].data();
           const serverPath = sizeChartData.Server_Path;
           sizeChartUrl = await getImageDownloadURL(`gs://freidea-pos-img/${serverPath}`);
         }
   
-        // Update product data
-        productData.imageUrl = imageUrls[0] || "";
-        productData.imageUrl2 = imageUrls[1] || "";
-        productData.imageUrl3 = imageUrls[2] || "";
-        productData.imageUrl4 = imageUrls[3] || "";
-        productData.sizeChart = sizeChartUrl;
+        // Update product data with fallback for missing images
+        productData.imageUrl = imageUrls[0] || defaultImageUrl;
+        productData.imageUrl2 = imageUrls[1] || defaultImageUrl;
+        productData.imageUrl3 = imageUrls[2] || defaultImageUrl;
+        productData.imageUrl4 = imageUrls[3] || defaultImageUrl;
+        productData.sizeChart = sizeChartUrl ||  defaultImageUrl;
   
         setProduct(productData);
-        setMainImage(imageUrls[0] || "");
-        setThumbnail1(imageUrls[0] || "");
-        setThumbnail2(imageUrls[1] || "");
-        setThumbnail3(imageUrls[2] || "");
-        setThumbnail4(imageUrls[3] || "");
-        setSizechart(sizeChartUrl);
+        setMainImage(imageUrls[0] || defaultImageUrl);
+        setThumbnail1(imageUrls[0] || defaultImageUrl);
+        setThumbnail2(imageUrls[1] || defaultImageUrl);
+        setThumbnail3(imageUrls[2] || defaultImageUrl);
+        setThumbnail4(imageUrls[3] || defaultImageUrl);
+        setSizechart(sizeChartUrl || defaultImageUrl);
   
-        // Output the colors array to the UI or product data
-        setColorNamesArray(colorsArray); // You need to define a state for this
+        setColorNamesArray(colorsArray);
       } catch (error) {
         console.error("Error fetching product or images:", error);
       }
@@ -197,6 +189,7 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
   
     fetchProduct();
   }, [productId]);
+  
 
 
   const handleImageClick = (src: string) => {

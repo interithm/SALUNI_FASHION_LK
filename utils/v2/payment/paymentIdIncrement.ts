@@ -2,7 +2,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export const paymentIdIncrement = async (paymentID:number) => {
-    const orgDocId = "20240711-1011-SaluniFashion"; 
+    const orgDocId = "saluni-fashion-production-qa"; 
     const counterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'payment-id'); 
 
     try {

@@ -12,7 +12,7 @@ import { ref, getStorage, getDownloadURL } from 'firebase/storage';
 import ProductDetailsLoading from './common/ProductDetailsLoading';
 import { Heart } from 'lucide-react';
 import Reviews from './Reviews';
-const orgDocId = "20240711-1011-SaluniFashion";
+const orgDocId = "saluni-fashion-production-qa";
 const storage = getStorage();
 
 type ProductDetailsProps = {
@@ -82,11 +82,11 @@ const ProductDetails = ({ productId }: ProductDetailsProps) => {
         const productData = productDoc.data() as Product;
         const ID = productData.Item_ID_Auto.toString();
         const formattedProductId = ID.replace(/\//g, '_');
-        const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product_${formattedProductId}.png`);
-        const imageUrl2 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product2_${formattedProductId}.png`);
-        const imageUrl3 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product3_${formattedProductId}.png`);
-        const imageUrl4 = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/Products/Product4_${formattedProductId}.png`);
-        const sizeChart = await getImageDownloadURL(`gs://freidea-pos-img/20240711-1011-SaluniFashion/Images/SizeCharts/Product_${formattedProductId}.png`);
+        const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/saluni-fashion-production-qa/Images/Products/Product_${formattedProductId}.png`);
+        const imageUrl2 = await getImageDownloadURL(`gs://freidea-pos-img/saluni-fashion-production-qa/Images/Products/Product2_${formattedProductId}.png`);
+        const imageUrl3 = await getImageDownloadURL(`gs://freidea-pos-img/saluni-fashion-production-qa/Images/Products/Product3_${formattedProductId}.png`);
+        const imageUrl4 = await getImageDownloadURL(`gs://freidea-pos-img/saluni-fashion-production-qa/Images/Products/Product4_${formattedProductId}.png`);
+        const sizeChart = await getImageDownloadURL(`gs://freidea-pos-img/saluni-fashion-production-qa/Images/SizeCharts/Product_${formattedProductId}.png`);
 
         productData.imageUrl = imageUrl;
         productData.imageUrl2 = imageUrl2;

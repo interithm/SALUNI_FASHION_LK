@@ -29,7 +29,11 @@ export const paymenthandler = async (onlinePaymentData , paymentID , orderID , c
         Deleted: onlinePaymentData.deleted || 0,
         InvBill_No: orderID,
         Note: onlinePaymentData.note || "",
-        UUID: onlinePaymentData.uuid || "03e6b735-b6e1-4759-8323-6017b2e4af3e"
+        UUID: onlinePaymentData.uuid || "03e6b735-b6e1-4759-8323-6017b2e4af3e",
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
     };
     savePaymentHandler(paymentData)
 
@@ -40,7 +44,7 @@ export const paymenthandler = async (onlinePaymentData , paymentID , orderID , c
 
 const savePaymentHandler = async (paymentData) => {
 try{
-    const orgDocId = "20240711-1011-SaluniFashion";
+    const orgDocId = "saluni-fashion-production-qa";
     const paymentDocRef = collection(db, 'organizations', orgDocId, 'paymentss');
 
     const docRef = await addDoc(paymentDocRef, {

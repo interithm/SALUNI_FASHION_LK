@@ -4,7 +4,7 @@ import { generateCustomId, generatePaymentId, generateOrderId } from './idhandle
 
 const saveCustomerData = async (customerData) => {
   try {
-    const orgDocId = "20240711-1011-SaluniFashion"; 
+    const orgDocId = "saluni-fashion-production-qa"; 
     const customerDocRef = collection(db, 'organizations', orgDocId, 'customerss');
     const counterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'customer-id');
     const q = query(customerDocRef, where("Email", "==", customerData.Email));
@@ -37,7 +37,7 @@ const saveCustomerData = async (customerData) => {
 
 const savePaymentData = async (paymentData, custId) => {
   try {
-    const orgDocId = "20240711-1011-SaluniFashion"; 
+    const orgDocId = "saluni-fashion-production-qa"; 
     const paymentDocRef = collection(db, 'organizations', orgDocId, 'paymentss');
     const paymentCounterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'payment-id');
 
