@@ -6,7 +6,7 @@ import { ref, getStorage, getDownloadURL } from 'firebase/storage';
 import { db } from '../utils/firebase';
 import ProductCard from './common/ProductCard';
 import './Styles/productlist.css';
-import Loading from './common/Loading'
+import Loading from './common/Loading';
 
 type Product = {
   id: string;
@@ -18,13 +18,12 @@ type Product = {
   UUID: string;
   imageUrl?: string;
   imageUrl2?: string; 
-  Item_ID_Auto: number
+  Item_ID_Auto: number;
 };
 
 const orgDocId = "20241118-1530-SaluniFashion";
 
-
-const defaultImageUrl ='https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/20241118-1530-SaluniFashion%2FImages%2FProducts%2FbackupImage.jpg?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629' // Replace with your default image URL
+const defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/freidea-pos-img/o/20241118-1530-SaluniFashion%2FImages%2FProducts%2FbackupImage.jpg?alt=media&token=1246d87a-6de4-4494-b59b-2965bc18d629';
 const storage = getStorage();
 
 async function getImageDownloadURL(imagePath: string): Promise<string> {
@@ -34,11 +33,10 @@ async function getImageDownloadURL(imagePath: string): Promise<string> {
   }
   try {
     const imageRef = ref(storage, imagePath);
-    const imageUrl = await getDownloadURL(imageRef);
-    return imageUrl;
+    return await getDownloadURL(imageRef);
   } catch (error) {
-    // console.error(`Error getting image download URL for path: ${imagePath}`, error);
-    return defaultImageUrl; // Return default image URL on error
+    console.error(`Error getting image download URL for path: ${imagePath}`, error);
+    return defaultImageUrl;
   }
 }
 
@@ -47,11 +45,12 @@ const ProductList = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
+
+        // Fetch product details
         const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
         const filters = [
           where("ItemActiveMode", "==", 1),
@@ -62,29 +61,32 @@ const ProductList = (props) => {
           orderBy(props.group, "desc"),
           limit(props.limits),
         ];
-      
-        // Conditionally add the Brand filter if props.type is provided
+
         if (props.type) {
           filters.push(where("Brand", "==", props.type));
         }
-      
-        // Build the query using the filters
+
         const itemsQuery = query(itemsRef, ...filters);
         const querySnapshot = await getDocs(itemsQuery);
-        const productsArray: Product[] = [];
+        const productsArray: Product[] = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Product[];
 
-        for (const doc of querySnapshot.docs) {
-          const product = { id: doc.id, ...doc.data() } as Product;
-          const ID =  product.Item_ID_Auto.toString();
-          const formattedProductId = ID.replace(/\//g, '_');
-          const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/${orgDocId}/Images/Products/Product_${formattedProductId}.png`);
-          const imageUrl2 = await getImageDownloadURL(`gs://freidea-pos-img/${orgDocId}/Images/Products/Product2_${formattedProductId}.png`)
-          product.imageUrl = imageUrl;
-          product.imageUrl2 = imageUrl2
-          productsArray.push(product);
-        }
+        // Fetch images using Promise.all
+        const updatedProducts = await Promise.all(
+          productsArray.map(async (product) => {
+            const ID = product.Item_ID_Auto.toString();
+            const formattedProductId = ID.replace(/\//g, '_');
+            const [imageUrl, imageUrl2] = await Promise.all([
+              getImageDownloadURL(`gs://freidea-pos-img/${orgDocId}/Images/Products/Product_${formattedProductId}.png`),
+              getImageDownloadURL(`gs://freidea-pos-img/${orgDocId}/Images/Products/Product2_${formattedProductId}.png`),
+            ]);
+            return { ...product, imageUrl, imageUrl2 };
+          })
+        );
 
-        setProducts(productsArray);
+        setProducts(updatedProducts);
       } catch (err) {
         setError("Failed to fetch products");
         console.error(err);
@@ -94,10 +96,10 @@ const ProductList = (props) => {
     };
 
     fetchProducts();
-  }, [props.category, props.group, props.limits, props.order, props.type , props.width]);
+  }, [props.category, props.group, props.limits, props.order, props.type, props.width]);
 
   if (loading) {
-    return <><Loading /></>
+    return <Loading />;
   }
 
   if (error) {
@@ -106,7 +108,7 @@ const ProductList = (props) => {
 
   return (
     <div className="card-container">
-      {products.map(product => (
+      {products.map((product) => (
         <ProductCard
           key={product.id}
           Discount={product.Discount}
@@ -115,8 +117,8 @@ const ProductList = (props) => {
           UUID={product.UUID}
           imageUrl={product.imageUrl}
           imageUrl2={product.imageUrl2}
-          width={200} // Example width
-          height={200} // Example height
+          width={200}
+          height={200}
         />
       ))}
     </div>
