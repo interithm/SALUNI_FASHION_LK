@@ -31,7 +31,7 @@ const ProductReviewComponent = ({ productId }) => {
             setLoading(true);
             setError('');
             try {
-                const orgDocId = '20240711-1011-SaluniFashion';
+                const orgDocId = 'saluni-fashion-production-qa';
                 const reviewRef = collection(doc(db, 'organizations', orgDocId), 'reviews');
                 const reviewQuery = query(reviewRef, where('productId', '==', productId));
 
@@ -71,7 +71,7 @@ const ProductReviewComponent = ({ productId }) => {
         setNewReview({ rating: 0, comment: '', name: '' });
 
         try {
-            const orgDocId = '20240711-1011-SaluniFashion';
+            const orgDocId = 'saluni-fashion-production-qa';
             const itemsRef = collection(doc(db, 'organizations', orgDocId), 'reviews');
 
             await addDoc(itemsRef, {

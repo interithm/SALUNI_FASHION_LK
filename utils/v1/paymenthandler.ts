@@ -4,7 +4,7 @@
 
 // const savePaymentData = async (paymentData) => {
 //     try {
-//       const orgDocId = "20240711-1011-SaluniFashion"; 
+//       const orgDocId = "saluni-fashion-production-qa"; 
 //       const paymentDocRef = collection(db, 'organizations', orgDocId, 'paymentss');
       
 //       // Adding the payment data to Firestore

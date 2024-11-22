@@ -3,7 +3,7 @@ import { db } from "../../firebase";
 
 export const orderHandler = async (cartItems , orderID , customerID , billingDetails) => {
 
-    const orgDocId = "20240711-1011-SaluniFashion";
+    const orgDocId = "saluni-fashion-production-qa";
     const orderItemsRef = collection(db, 'organizations', orgDocId, 'order_items');
     const ordersRef = collection(db, 'organizations', orgDocId, 'orders');
 

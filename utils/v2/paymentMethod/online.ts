@@ -2,7 +2,7 @@ import { collection, addDoc, updateDoc, where, query, getDocs, doc } from "fireb
 import { db } from "../../firebase";
 
 export const onlineSavePaymentData = async (paymentData: { additional_data: string }) => {
-    const orgDocId = "20240711-1011-SaluniFashion";
+    const orgDocId = "saluni-fashion-production-qa";
 
     // Reference to the payments collection
     const paymentDocRef = collection(db, 'organizations', orgDocId, 'paymentss');

@@ -3,7 +3,7 @@ import { db } from '../firebase';
 
 export async function generateCustomId(prefix: string): Promise<string> {
   // Define the path to the specific counter document
-  const orgDocId = "20240711-1011-SaluniFashion";
+  const orgDocId = "saluni-fashion-production-qa";
   const counterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'customer-id');
 
   // Fetch the current counter for the specified prefix
@@ -29,7 +29,7 @@ generateCustomId("WC").then((id) => console.log(id));
 
 export async function generateOrderId(prefix: string): Promise<string> {
 
-  const orgDocId = "20240711-1011-SaluniFashion";
+  const orgDocId = "saluni-fashion-production-qa";
   const counterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'order-id');
 
   const counterDoc = await getDoc(counterDocRef);
@@ -49,7 +49,7 @@ generateOrderId("WO").then((id) => console.log(id));
 
 export async function generatePaymentId(prefix: string): Promise<string> {
 
-  const orgDocId = "20240711-1011-SaluniFashion";
+  const orgDocId = "saluni-fashion-production-qa";
   const counterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'payment-id');
 
   const counterDoc = await getDoc(counterDocRef);
