@@ -20,7 +20,8 @@ const config: Config = {
   },
   plugins: [
     require('daisyui'), 
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
   ],
   daisyui: {
     themes: ["light",
