@@ -66,7 +66,7 @@ const Header = () => {
                       {/*<li><Link href="/product/women/top">Top</Link></li>*/}
                       <li><Link href="/product/women/workwear">Work Wear</Link></li>
                       <li><Link href="/product/women/denim">Denim</Link></li>
-                      <li><Link href="/product/women/coat">Coat</Link></li>
+                      {/*<li><Link href="/product/women/coat">Coat</Link></li>*/}
                       
                     </ul>
                   </details>
@@ -96,7 +96,7 @@ const Header = () => {
                       <li><Link href="/product/accessories/necklaces">Necklaces</Link></li>
                       <li><Link href="/product/accessories/bracelets">Bracelets</Link></li>
                       <li><Link href="/product/accessories/rings">Rings</Link></li>
-                      <li><Link href="/product/accessories/jewelry">Jewelry</Link></li>
+                      <li><Link href="/product/accessories/jewelry-set">Jewelry</Link></li>
                       <li><Link href="/product/accessories/scrunchies">Scrunchies</Link></li>
                       <li><Link href="/product/accessories/hairclips">Hair Clips</Link></li>
                       <li><Link href="/product/accessories/slippers">Slippers</Link></li>
@@ -163,7 +163,7 @@ const Header = () => {
                   <li className="py-2 px-4 hover:bg-black-800"><Link href="/product/unisex/shorts">Shorts</Link></li>
                   <li className="py-2 px-4 hover:bg-black-800"><Link href="/product/unisex/skirts">Skirts</Link></li>
                   <li className="py-2 px-4 hover:bg-black-800"><Link href="/product/unisex/tops">Tops</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/unisex/t-shirts">T Shirts</Link></li>
+                  <li className="py-2 px-4 hover:bg-black-800"><Link href="/product/unisex/t-shirts">T Shirts</Link></li>
                   
                 </ul>
               </li>
@@ -177,7 +177,7 @@ const Header = () => {
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/necklaces">Necklaces</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/bracelets">Bracelets</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/rings">Rings</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/jewelry">Jewelry</Link></li>
+                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/jewelry-set">Jewelry</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/scrunchies">Scrunchies</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/hairclips">Hair Clips</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/accessories/slippers">Slippers</Link></li>
