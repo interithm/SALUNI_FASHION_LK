@@ -15,7 +15,7 @@ export default function men () {
      order=">="
      limit={12}
      group='Brand'
-     type=''
+     type='t-shirts'
      /></MainLayout>
     )
 }

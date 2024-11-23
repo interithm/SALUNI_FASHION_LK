@@ -63,7 +63,7 @@ const Header = () => {
                       <li><Link href="/product/women/jumpsuit">JumpSuit</Link></li>
                       <li><Link href="/product/women/jackets">Jackets</Link></li>
                       <li><Link href="/product/women/full-kit">Full Kit</Link></li>
-                      <li><Link href="/product/women/top">Top</Link></li>
+                      {/*<li><Link href="/product/women/top">Top</Link></li>*/}
                       <li><Link href="/product/women/workwear">Work Wear</Link></li>
                       <li><Link href="/product/women/denim">Denim</Link></li>
                       <li><Link href="/product/women/coat">Coat</Link></li>
@@ -138,11 +138,11 @@ const Header = () => {
                 <ul className="absolute hidden group-hover:block bg-black shadow-lg py-2 text-sm text-white min-w-[150px] max-h-[300px] overflow-y-auto">
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/shorts">Shorts</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/skirts">Skirts</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/coat">Coat</Link></li>
+                  {/*<li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/coat">Coat</Link></li>*/}
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/t-shirts">T Shirts</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/denim">Denim</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/workwear">Work Wear</Link></li>
-                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/top">Top</Link></li>
+                  <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/tops">Top</Link></li>
                   {/* <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/cami-top">Cami Top</Link></li>
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/crop-top">Crop Top</Link></li> */}
                   <li className="py-2 px-2 hover:bg-black-800"><Link href="/product/women/full-kit">Full Kit</Link></li>
