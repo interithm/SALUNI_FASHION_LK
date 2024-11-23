@@ -25,7 +25,7 @@ const AboutPage = () => {
                     <div className="space-y-8">
                         <div className="space-y-4">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                                Hey 👋 I'm <span className="text-blue-500">Saluni Vishara</span>
+                                Hey 👋 I&apos;m <span className="text-blue-500">Saluni Vishara</span>
                             </h1>
                             <div className="h-1 w-20 bg-blue-500" />
                         </div>
@@ -37,7 +37,7 @@ const AboutPage = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-gray-900">Let's Connect</h3>
+                            <h3 className="text-xl font-semibold text-gray-900">Let&apos;s Connect</h3>
                             <div className="flex items-center space-x-4">
                                 {socialLinks.map((link) => (
                                     <a
