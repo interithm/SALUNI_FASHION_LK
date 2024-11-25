@@ -7,7 +7,7 @@ export const paymentGateway = async (onlinePaymentData, paymentID: number) => {
         additional_data: paymentID,
     };
 
-    console.log("Request body being sent:", requestBody); // Log the request body
+    console.log("Request body being sent to onepay:", requestBody); // Log the request body
 
     try {
         const response = await fetch('/api/onepay', {

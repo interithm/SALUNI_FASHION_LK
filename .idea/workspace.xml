@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="setup">
-      <change afterPath="$PROJECT_DIR$/src/app/api/koko/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/v2/payment/kokopaymentGateway.ts" afterDir="false" />
+    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="implement end point">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Cart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Cart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/v2/handlePlaceNewOrder.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/handlePlaceNewOrder.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/v2/payment/kokoPaymentGateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/payment/kokoPaymentGateway.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat/imagelogic" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,7 +63,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feat/koko",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/GitHub/Saluni-Fashion-LK",
     "node.js.detected.package.eslint": "true",
@@ -100,7 +101,7 @@
       <workItem from="1732335978476" duration="11987000" />
       <workItem from="1732508281515" duration="10456000" />
       <workItem from="1732521557011" duration="1881000" />
-      <workItem from="1732523814674" duration="4202000" />
+      <workItem from="1732523814674" duration="10764000" />
     </task>
     <task id="LOCAL-00001" summary="fix errors">
       <option name="closed" value="true" />
@@ -182,7 +183,87 @@
       <option name="project" value="LOCAL" />
       <updated>1732521914770</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="create koko payment base functions">
+      <option name="closed" value="true" />
+      <created>1732529423744</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529423744</updated>
+    </task>
+    <task id="LOCAL-00012" summary="create end point for koko payment handler">
+      <option name="closed" value="true" />
+      <created>1732529446925</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529446925</updated>
+    </task>
+    <task id="LOCAL-00013" summary="implement conditional payment switch option">
+      <option name="closed" value="true" />
+      <created>1732529480105</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529480105</updated>
+    </task>
+    <task id="LOCAL-00014" summary="workspace configuration">
+      <option name="closed" value="true" />
+      <created>1732529493310</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529493310</updated>
+    </task>
+    <task id="LOCAL-00015" summary="implement gateway">
+      <option name="closed" value="true" />
+      <created>1732533886485</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533886485</updated>
+    </task>
+    <task id="LOCAL-00016" summary="implement gateway">
+      <option name="closed" value="true" />
+      <created>1732533893148</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533893148</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix uuid">
+      <option name="closed" value="true" />
+      <created>1732533906322</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533906322</updated>
+    </task>
+    <task id="LOCAL-00018" summary="update logger">
+      <option name="closed" value="true" />
+      <created>1732533917757</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533917757</updated>
+    </task>
+    <task id="LOCAL-00019" summary="implement end point">
+      <option name="closed" value="true" />
+      <created>1732533930588</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533930588</updated>
+    </task>
+    <task id="LOCAL-00020" summary="implement end point">
+      <option name="closed" value="true" />
+      <created>1732533942075</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533942075</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,7 +279,15 @@
     <MESSAGE value="fix apos error &amp;apos;" />
     <MESSAGE value="fix apos error &amp;apos" />
     <MESSAGE value="setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup" />
+    <MESSAGE value="create koko payment base functions" />
+    <MESSAGE value="create end point for koko payment handler" />
+    <MESSAGE value="implement conditional payment switch option" />
+    <MESSAGE value="workspace configuration" />
+    <MESSAGE value="implement gateway" />
+    <MESSAGE value="fix uuid" />
+    <MESSAGE value="update logger" />
+    <MESSAGE value="implement end point" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement end point" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

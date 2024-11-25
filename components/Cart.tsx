@@ -65,6 +65,20 @@ const Cart = () => {
     customer_phone_number: '0704894572',
     customer_email: user?.primaryEmailAddress?.emailAddress,
   });
+  const [kokoOnlinePaymentData , setKokoOnlinePaymentData] = useState({
+    _amount: 0,
+    _currency:"LKR",
+    _pluginName: 'custom',
+    _reference: '1256789075',
+    _pluginVersion:"5.5.1",
+    _description:'description',
+    _firstName:user?.firstName,
+    _lastName:user?.lastName,
+    _email:user?.primaryEmailAddress?.emailAddress,
+    dataString:"", // todo
+    signature:"" //todo
+
+  })
   useEffect(() => {
     const itemsString = localStorage.getItem('Items');
     if (itemsString) {
@@ -98,7 +112,16 @@ const Cart = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);  // Updates only when cartItems change
 
-  //update amount tab in online payment gateway
+  //update amount tab in online payment gateway koko
+
+  useEffect(() => {
+    const { rawTotal } = calculateTotalPrice();
+    setKokoOnlinePaymentData((prevDetails) => ({
+      ...prevDetails,
+      _amount: rawTotal,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartItems]);  // Updates only when cartItems change
 
   useEffect(() => {
     const { rawTotal } = calculateTotalPrice();
@@ -330,7 +353,7 @@ const Cart = () => {
 
                 <div className="card-actions justify-end mt-6">
                   <button
-                    onClick={() => handlePlaceNewOrder(billingDetails , cartItems ,onlinePaymentData , paymentMethod)}
+                    onClick={() => handlePlaceNewOrder(billingDetails , cartItems ,onlinePaymentData , paymentMethod , kokoOnlinePaymentData)}
                     className="btn btn-primary btn-block"
                   >
                     Place Order
