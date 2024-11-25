@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc , updateDoc ,  doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export const orderHandler = async (cartItems , orderID , customerID , billingDetails) => {
@@ -10,16 +10,40 @@ export const orderHandler = async (cartItems , orderID , customerID , billingDet
 
     try {
         // Prepare order-level data
+
         const orderData = {
-            customerName:billingDetails.name,
+            Cust_Name:billingDetails.name,
             customerID:customerID,
-            customerAddress:billingDetails.address,
-            customerAddress2:billingDetails.city,
-            customerAddress3:billingDetails.postalCode,
-            orderAutoID: "", // Generate an auto ID if needed
-            orderID: orderID,
+            Cust_Phone:billingDetails.number,
+            Cust_Address1:billingDetails.address,
+            Cust_Address2:billingDetails.city,
+            Cust_Address3:billingDetails.postalCode,
+            Cust_Email:billingDetails.email,
+            orderAutoID: "",
+            orderID: "Order - " + orderID ,
+            NetTotal: cartItems.reduce((total, item) => total + item.Sales_Price * item.quantity, 0),
             orderDate: new Date(),
-            totalAmount: cartItems.reduce((total, item) => total + item.Sales_Price * item.quantity, 0),
+            createdDate: new Date().toLocaleDateString(),
+            createdTime: new Date().toLocaleTimeString(),
+            currentStatus:"pending",
+            tableName:"",
+            note:"",
+            subTotal:cartItems.reduce((total, item) => total + item.Sales_Price * item.quantity, 0) - 400,
+            ExtraDiscount:0,
+            ExtraDiscPercentage:0,
+            ServiceCharge:400,
+            ServiceChargePercentage:0,
+            Deleted:0,
+            UUID:"",
+            OrderType:"web order",
+            IsPaid:"",
+            ReasonRemark:"",
+            ReasonCategory:"",
+            parkNo:"",
+            invoiceNo:"",
+            deletedBy:"",
+            rejectedBy:"",
+            confirmedBy:"",
             1: 0,
             2: 0,
             3: 0,
@@ -28,19 +52,20 @@ export const orderHandler = async (cartItems , orderID , customerID , billingDet
 
         // Create a new document in the 'orders' collection
         const orderRef = await addDoc(ordersRef, orderData);
-
+        const orderDocRef = doc(db, ordersRef.path, orderRef.id);
+        await updateDoc(orderDocRef, { orderAutoID: orderRef.id });
         // Loop through each item in cartItems to create individual order items
         for (const [index, item] of cartItems.entries()) {
             const orderItemData = {
                 orderAutoID: orderRef.id, // Link to main order
-                orderID: orderID,
+                orderID:"Order - " + orderID,
                 lineOrder: index + 1,
                 itemAutoID: item.Item_ID_Auto,
                 itemID: item.Item_ID,
                 itemName: item.Item_Name,
                 itemEngName: item.Item_Eng_Name || "", // Assuming optional English name
                 quantity: item.quantity,
-                UUID: item.UUID,
+                UUID:orderRef.id,
                 salePrice: item.Sales_Price,
                 lineTotal: item.Sales_Price * item.quantity,
                 remark: "",

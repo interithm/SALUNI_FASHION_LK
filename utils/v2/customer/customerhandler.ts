@@ -62,7 +62,7 @@ const customerData = {
  const saveCustomerHandler = async (customerData) => {
     try {
         const orgDocId = "saluni-fashion-production-qa"; // the organization name
-        const customerDocRef = collection(db, 'organizations', orgDocId, 'customerss'); // target collection to update the data 
+        const customerDocRef = collection(db, 'organizations', orgDocId, 'customers'); // target collection to update the data
         const counterDocRef = doc(db, 'organizations', orgDocId, 'increment-id', 'customer-id'); // to update the customers we need to get the increwment id from here 
         const q = query(customerDocRef, where("Email", "==", customerData.Email)); // check the providing email is mathching to any other email in firestore
         const querySnapshot = await getDocs(q); // if there is data get their snapshot
