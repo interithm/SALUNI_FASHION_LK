@@ -44,7 +44,6 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "feat/contact",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -52,7 +51,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "D:\\GitHub\\SALUNI_FASHION_LK\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -79,6 +78,7 @@
       <workItem from="1732335784034" duration="93000" />
       <workItem from="1732335889189" duration="79000" />
       <workItem from="1732335978476" duration="11987000" />
+      <workItem from="1732508281515" duration="9738000" />
     </task>
     <task id="LOCAL-00001" summary="fix errors">
       <option name="closed" value="true" />
@@ -167,7 +167,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/components/common/Header.tsx</url>
           <line>145</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

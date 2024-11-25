@@ -4,7 +4,7 @@ import { db } from "../../firebase";
 export const customerIdHandler = async (billingDetails) => {
     try {
         const orgDocId = "saluni-fashion-production-qa";
-        const customerDocRef = collection(db, 'organizations', orgDocId, 'customerss');
+        const customerDocRef = collection(db, 'organizations', orgDocId, 'customers');
         const q = query(customerDocRef, where("Email", "==", billingDetails.email));
         const querySnapshotCustomers = await getDocs(q);
 
