@@ -53,7 +53,7 @@ export const orderHandler = async (cartItems , orderID , customerID , billingDet
         // Create a new document in the 'orders' collection
         const orderRef = await addDoc(ordersRef, orderData);
         const orderDocRef = doc(db, ordersRef.path, orderRef.id);
-        await updateDoc(orderDocRef, { orderAutoID: orderRef.id });
+        await updateDoc(orderDocRef, { orderAutoID: orderRef.id , UUID: orderRef.id });
         // Loop through each item in cartItems to create individual order items
         for (const [index, item] of cartItems.entries()) {
             const orderItemData = {
