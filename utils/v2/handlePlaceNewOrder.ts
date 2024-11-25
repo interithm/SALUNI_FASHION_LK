@@ -25,7 +25,7 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
         console.log(orderID);
         console.log(paymentID);
         console.log(cartItems);
-        console.log('data' , onlinePaymentData);
+        console.log('payemtn data' , onlinePaymentData);
         console.log(billingDetails);
 
         // then conditionally call the functions accroding to the payment types
