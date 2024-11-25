@@ -8,7 +8,7 @@ import { paymentIdHandler } from './payment/paymentIdHandler';
 import { paymenthandler } from './payment/paymenthandler';
 import { paymentIdIncrement } from './payment/paymentIdIncrement';
 import { paymentGateway } from './payment/paymentGateway';
-
+import { kokopaymentGateway} from "@utils/v2/payment/kokopaymentGateway";
 
 export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePaymentData, paymentMethod) => {
 
@@ -35,7 +35,7 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
             paymenthandler(onlinePaymentData, paymentID, orderID, customerID);
             orderIdIncrement(orderID);
             paymentIdIncrement(paymentID);
-            console.log("All Ids Are Incremented");
+            console.log("All ids are incremented proceed with cash on delivery");
             
         }
         else if (paymentMethod === "gateway") {
@@ -44,10 +44,20 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
             await paymentGateway(onlinePaymentData ,paymentID);
             orderIdIncrement(orderID);
             paymentIdIncrement(paymentID);
-            console.log("All Ids Are Incremented");
+            console.log("All ids are incremented onepay payment runs smoothly");
             
         }
+        else if (paymentMethod === "koko") {
+            // console.log("koko" , orderID);
+            orderHandler(cartItems, orderID, customerID, billingDetails);
+            paymenthandler(onlinePaymentData, paymentID, orderID, customerID);
+            await kokopaymentGateway(onlinePaymentData ,paymentID);
+            orderIdIncrement(orderID);
+            paymentIdIncrement(paymentID);
+            console.log("All ids are incremented koko payment runs smoothly");
+        }
         else {
+
             console.log("User select the koko payment gateway");
         }
 
