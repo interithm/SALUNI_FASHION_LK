@@ -1,8 +1,8 @@
-export const kokoPaymentGateway = async (onlinePaymentData: any , orderID: number ) => {
+export const kokoPaymentGateway = async (kokoOnlinePaymentData: any , orderID: number ) => {
     console.log( "Navigation to koko payment gateway portal  ","Got payment ID" , orderID);
 
     const requestBody = {
-        ...onlinePaymentData,
+        ...kokoOnlinePaymentData,
         orderId: orderID,
     };
 
@@ -19,9 +19,9 @@ export const kokoPaymentGateway = async (onlinePaymentData: any , orderID: numbe
 
         const data = await response.json();
 
-        if (data?.data?.gateway?.redirect_url) {
+        if (data) {
             console.log('Payment success:', data);
-            window.location.href = data.data.gateway.redirect_url;
+            // window.location.href = data.data.gateway.redirect_url;
         } else {
             console.error('Payment error:', data);
         }

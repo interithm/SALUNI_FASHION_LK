@@ -1,4 +1,4 @@
-import { doc, setDoc, collection, addDoc, updateDoc, query, where, getDocs, getDoc } from "firebase/firestore";
+
 import { customerHandler } from './customer/customerhandler';
 import { customerIdHandler } from './customer/customerIdHandler';
 import { orderIdHandler } from './order/orderIdHandler';
@@ -10,7 +10,7 @@ import { paymentIdIncrement } from './payment/paymentIdIncrement';
 import { paymentGateway } from './payment/paymentGateway';
 import { kokoPaymentGateway} from "@utils/v2/payment/kokoPaymentGateway";
 
-export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePaymentData, paymentMethod) => {
+export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePaymentData, paymentMethod, kokoOnlinePaymentData) => {
 
     let orderID;
     let paymentID;
@@ -51,7 +51,7 @@ export const handlePlaceNewOrder = async (billingDetails, cartItems, onlinePayme
             // console.log("koko" , orderID);
             orderHandler(cartItems, orderID, customerID, billingDetails);
             paymenthandler(onlinePaymentData, paymentID, orderID, customerID);
-            await kokoPaymentGateway(onlinePaymentData ,orderID);
+            await kokoPaymentGateway(kokoOnlinePaymentData ,orderID);
             orderIdIncrement(orderID);
             paymentIdIncrement(paymentID);
             console.log("All ids are incremented koko payment runs smoothly");

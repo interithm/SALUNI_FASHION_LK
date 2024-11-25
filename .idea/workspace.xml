@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="workspace configuration">
+    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="implement end point">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/koko/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/koko/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Cart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Cart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/v2/handlePlaceNewOrder.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/handlePlaceNewOrder.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/v2/order/orderhandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/order/orderhandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/v2/payment/kokopaymentGateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/payment/kokoPaymentGateway.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/v2/payment/paymentGateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/payment/paymentGateway.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/v2/payment/kokoPaymentGateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/v2/payment/kokoPaymentGateway.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,7 @@
       <workItem from="1732335978476" duration="11987000" />
       <workItem from="1732508281515" duration="10456000" />
       <workItem from="1732521557011" duration="1881000" />
-      <workItem from="1732523814674" duration="8502000" />
+      <workItem from="1732523814674" duration="10764000" />
     </task>
     <task id="LOCAL-00001" summary="fix errors">
       <option name="closed" value="true" />
@@ -217,7 +215,55 @@
       <option name="project" value="LOCAL" />
       <updated>1732529493310</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="implement gateway">
+      <option name="closed" value="true" />
+      <created>1732533886485</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533886485</updated>
+    </task>
+    <task id="LOCAL-00016" summary="implement gateway">
+      <option name="closed" value="true" />
+      <created>1732533893148</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533893148</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix uuid">
+      <option name="closed" value="true" />
+      <created>1732533906322</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533906322</updated>
+    </task>
+    <task id="LOCAL-00018" summary="update logger">
+      <option name="closed" value="true" />
+      <created>1732533917757</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533917757</updated>
+    </task>
+    <task id="LOCAL-00019" summary="implement end point">
+      <option name="closed" value="true" />
+      <created>1732533930588</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533930588</updated>
+    </task>
+    <task id="LOCAL-00020" summary="implement end point">
+      <option name="closed" value="true" />
+      <created>1732533942075</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732533942075</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +283,11 @@
     <MESSAGE value="create end point for koko payment handler" />
     <MESSAGE value="implement conditional payment switch option" />
     <MESSAGE value="workspace configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace configuration" />
+    <MESSAGE value="implement gateway" />
+    <MESSAGE value="fix uuid" />
+    <MESSAGE value="update logger" />
+    <MESSAGE value="implement end point" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement end point" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
