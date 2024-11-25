@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="fix apos error &amp;apos">
+    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="setup">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +96,7 @@
       <workItem from="1732335889189" duration="79000" />
       <workItem from="1732335978476" duration="11987000" />
       <workItem from="1732508281515" duration="10456000" />
-      <workItem from="1732521557011" duration="286000" />
+      <workItem from="1732521557011" duration="343000" />
     </task>
     <task id="LOCAL-00001" summary="fix errors">
       <option name="closed" value="true" />
@@ -163,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732348833335</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="setup">
+      <option name="closed" value="true" />
+      <created>1732521866888</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732521866888</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -178,7 +185,8 @@
     <MESSAGE value="update &amp; config properties" />
     <MESSAGE value="fix apos error &amp;apos;" />
     <MESSAGE value="fix apos error &amp;apos" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix apos error &amp;apos" />
+    <MESSAGE value="setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="setup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
