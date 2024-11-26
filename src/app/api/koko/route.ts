@@ -22,6 +22,9 @@ qW3exaipfNTziE+OXvJxC3J3KS0st85909iDsZVNjd7NO9rbyh9zGkHDXayfFNTw
 dVdLqrnZae9w2QnE/AECQF+cRPcQMA1wbmOBCyn/C1YAMji71DtplJF9fFOxlp9P
 XdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=
 -----END RSA PRIVATE KEY-----`;
+    const publicKey = `-----BEGIN PUBLIC KEY----- 
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDwDt4Q9B+MEAcxP8pPeTYGh22lvCOxxKEwDuJPAvTtYpfiqU1Ip//njnMgWIpFcpIcqabALPrkHW8eD37SBzQ6R5lfr01xf7lBG3bGqNXZkdXb0txnoXSmPya+B4oGqZc+KWNrKTntY3sNKD6k4tdOeoX83rxb/gnZR5v7WP7WQIDAQAB 
+    -----END PUBLIC`
 
     try {
         // Parse the incoming request data
@@ -68,6 +71,8 @@ XdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=
         console.log('Generated Signature:', signature);
 
         console.log('Generated Data String:', dataString , "And The signature is this", signature);
+
+        //todo : find the error after this
 
         // Decode the provided signature
         const providedSignature = Buffer.from(apiData.signature, 'base64');
