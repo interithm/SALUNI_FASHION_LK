@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import React from "react";
-import product from "../../assests/images/product13.13.jpg";
+// import product from "../../assests/images/product13.13.jpg"; testing image
 import Image from "next/image";
 import "../Styles/productlist.css";
 import { formatPrice } from "@utils/price";
@@ -24,7 +24,7 @@ const ProductCard = ({ UUID, imageUrl, height, width, Eng_Name, Discount, Sales_
   return (
     <div className="custom-card" onClick={() => router.push(`/product/${formattedProductId}`)}>
       <figure onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-        <Image src={currentImageUrl} alt="product image" priority={false} loading="lazy" height='200' width='200' />
+        <Image src={currentImageUrl} alt="product image" priority={false} loading="lazy" height='2000' width='2000' />
       </figure>
       <div className="custom-card-body">
         <h2 className="custom-card-title">

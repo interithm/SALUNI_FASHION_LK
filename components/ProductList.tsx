@@ -61,6 +61,10 @@ const ProductList = (props) => {
           orderBy(props.group, "desc"),
           limit(props.limits),
         ];
+        if (props.category){
+            filters.push(where("Manufacturer", "==", props.category));
+        }
+
 
         if (props.type) {
           filters.push(where("Brand", "==", props.type));

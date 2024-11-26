@@ -13,7 +13,7 @@ export default function Home() {
       <Hero />
       <Title text="New Arrivals" />
       <ProductList
-        category=""
+        category='women'
         order=">="
         limits={12}
         group='Item_ID_Auto'
