@@ -1,8 +1,8 @@
 // app/api/callback/route.js
 import { NextResponse } from 'next/server';
-import { onlineSavePaymentData } from '../../../../utils/v2/paymentMethod/online';
+import { onlineSavePaymentData } from '@utils/v2/paymentMethod/online';
 
-
+// this is callback for One pay payment gateway
 
 
 export async function GET(){
