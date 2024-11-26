@@ -70,7 +70,7 @@ const Cart = () => {
     _currency:"LKR",
     _pluginName: 'custom',
     _reference: '1256789075',
-    _pluginVersion:"5.5.1",
+    _pluginVersion:"1",
     _description:'description',
     _firstName:user?.firstName,
     _lastName:user?.lastName,
