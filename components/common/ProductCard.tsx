@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import React from "react";
-import product from "../../assests/images/product13.13.jpg";
+// import product from "../../assests/images/product13.13.jpg"; testing image
 import Image from "next/image";
 import "../Styles/productlist.css";
 import { formatPrice } from "@utils/price";
