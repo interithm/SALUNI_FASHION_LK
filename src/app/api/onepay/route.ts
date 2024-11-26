@@ -38,7 +38,7 @@ export async function POST(req: Request) {
       'Content-Type': 'application/json'
     };
 
-    // Make the request to Onepay
+    // Make the request to One pay
     const response = await axios.post(url, transactionData, { headers });
 
     return NextResponse.json(response.data);

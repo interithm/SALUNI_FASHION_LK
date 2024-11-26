@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs, where, doc, query, orderBy, limit } from 'firebase/firestore';
 import { ref, getStorage, getDownloadURL } from 'firebase/storage';
-import { db } from '../utils/firebase';
+import { db } from '@utils/firebase';
 import ProductCard from './common/ProductCard';
 import './Styles/productlist.css';
 import Loading from './common/Loading';
