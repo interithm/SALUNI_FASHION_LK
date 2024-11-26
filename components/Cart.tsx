@@ -75,8 +75,6 @@ const Cart = () => {
     _firstName:user?.firstName,
     _lastName:user?.lastName,
     _email:user?.primaryEmailAddress?.emailAddress,
-    dataString:"", // todo
-    signature:"" //todo
 
   })
   useEffect(() => {

@@ -1,17 +1,14 @@
-// implement koko payment gateway
-
-import {NextResponse} from 'next/server';
-import axios from 'axios';
+import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
 export async function POST(req: Request) {
-
     const _mId = 'c8cca514bdfa0582cdc40c9703c71e9d';
     const api_key = '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
     const _responseUrl = 'https://salunifashion.lk/api/koko-callback';
     const _cancelUrl = 'https://salunifashion.lk/payment/koko-payment-failed';
     const _returnUrl = 'https://salunifashion.lk/payment/koko-payment-success';
-    const privateKey = `  -----BEGIN RSA PRIVATE KEY-----
+
+    const privateKey = `-----BEGIN RSA PRIVATE KEY-----
 MIICXAIBAAKBgQCnAPcpmvA3Iipb7Fn+eAmO/P4Xv8y+PVm8FrDhqOSeMqaUQmzf
 iZ6xw+ejCmye46MMW5SaA03Hnm0WGDXqYhMR0TiWUgXRCeQImxSq+wXwd+0ufxW+
 ANnvH9l/mxcPwlGr2BKJTUJy2NQt8FZ9R6NSfIlKzdyGStvzF3j0KdBnjQIDAQAB
@@ -25,11 +22,13 @@ t5NazMts0jFYbsd4pdPfTIiMIFLvJylABTtbpnF3Nfd+K+10//OVK10q1QJBAMLU
 qW3exaipfNTziE+OXvJxC3J3KS0st85909iDsZVNjd7NO9rbyh9zGkHDXayfFNTw
 dVdLqrnZae9w2QnE/AECQF+cRPcQMA1wbmOBCyn/C1YAMji71DtplJF9fFOxlp9P
 XdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=
------END RSA PRIVATE KEY----- `;
+-----END RSA PRIVATE KEY-----`;
 
-    const apiData = await req.json();
-    console.log("This Is Api Data 1", apiData);
     try {
+        const apiData = await req.json();
+        console.log('Received API Data:', apiData);
+
+        // Prepare data for signature verification
         const totalData = [
             apiData._amount,
             apiData._currency,
@@ -44,35 +43,37 @@ XdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=
             _returnUrl,
             api_key,
             _mId,
-        ];
-        console.log(totalData);
-        const totalDataString = Buffer.from(request.totalDataString, 'base64');
+        ].join('');
 
-        try {
-            const isValid = crypto.verify(
-                'sha256', // Hash algorithm
-                Buffer.from(totalData), // Data to verify
-                {
-                    key: publicKey,
-                    padding: crypto.constants.RSA_PKCS1_PADDING,
-                },
-                totalDataString // Provided signature
-            );
+        // Decode the provided signature
+        const providedSignature = Buffer.from(apiData.signature, 'base64');
 
-            console.log('Signature verification result:', isValid);
-        } catch (error) {
-            console.error('Error verifying signature:', error);
+        // Verify the signature
+        const isValid = crypto.verify(
+            'sha256',
+            Buffer.from(totalData),
+            {
+                key: privateKey,
+                padding: crypto.constants.RSA_PKCS1_PADDING,
+            },
+            providedSignature
+        );
+
+        console.log('Signature verification result:', isValid);
+
+        if (!isValid) {
+            return NextResponse.json({ success: false, message: 'Invalid signature' });
         }
 
-
+        // Prepare the data string for the payment gateway
         const dataString = JSON.stringify(apiData).replace(/\s/g, '');
+        console.log('Processed Data String:', dataString);
 
-        console.log("This Is Api Data 2", dataString);
+        // You can proceed with sending this data to the KoKo API endpoint
 
-
-    } catch (err) {
-        console.log('This is error in koko payment process', err)
+        return NextResponse.json({ success: true, message: 'Payment verified successfully' });
+    } catch (error) {
+        console.error('Error during KoKo payment process:', error);
+        return NextResponse.json({ success: false, message: 'Error during payment process' });
     }
-
-
 }
