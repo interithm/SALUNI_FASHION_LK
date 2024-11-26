@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 export async function POST(req: Request) {
     const mId = 'c8cca514bdfa0582cdc40c9703c71e9d';
-    const api = '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
+    const apiKey = '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
     const responseUrl = 'https://salunifashion.lk/api/koko-callback';
     const cancelUrl = 'https://salunifashion.lk/payment/koko-payment-failed';
     const returnUrl = 'https://salunifashion.lk/payment/koko-payment-success';
@@ -24,59 +24,63 @@ XdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=
 -----END RSA PRIVATE KEY-----`;
 
     try {
+        // Parse the incoming request data
         const apiData = await req.json();
         console.log('Received API Data:', apiData);
 
-        // Prepare data for signature verification
+        // Combine incoming data with fixed fields
         const totalData = {
             _mId: mId,
-            api_key:api,
+            api_key: apiKey,
             _returnUrl: returnUrl,
             _cancelUrl: cancelUrl,
-            _responseUrl:responseUrl,
+            _responseUrl: responseUrl,
             ...apiData,
-            dataStrings: '',
-            signature: '',
         };
 
-        console.log("Welcome Our New Data :" , totalData)
-
-        // creating dataString with correct data order
-
-        const createDataString = (totalData) => {
+        // Create the data string in the correct order
+        const createDataString = (data: any) => {
             return (
-                totalData._mId +
-                totalData._amount +
-                totalData._currency +
-                totalData._pluginName +
-                totalData._pluginVersion +
-                totalData._returnUrl +
-                totalData._cancelUrl +
-                totalData.orderId +
-                totalData._reference +
-                totalData._firstName +
-                totalData._lastName +
-                totalData._email +
-                totalData._description +
-                totalData.api_key +
-                totalData._responseUrl
+                data._mId +
+                data._amount +
+                data._currency +
+                data._pluginName +
+                data._pluginVersion +
+                data._returnUrl +
+                data._cancelUrl +
+                data.orderId +
+                data._reference +
+                data._firstName +
+                data._lastName +
+                data._email +
+                data._description +
+                data.api_key +
+                data._responseUrl
             );
         };
 
-
         const dataString = createDataString(totalData);
-        console.log("This Is Our Data Binding Hurry Up" , dataString )
 
+        const sign = crypto.createSign('sha256');
+        sign.update(dataString); // Add the data string to the signer
+        const signature = sign.sign(privateKey, 'base64'); // Get the signature in base64 format
+
+        console.log('Generated Signature:', signature);
+
+        console.log('Generated Data String:', dataString , "And The signature is this", signature);
+
+        // Decode the provided signature
+        const providedSignature = Buffer.from(apiData.signature, 'base64');
 
         // Verify the signature
         const isValid = crypto.verify(
-            'sha256',
-            Buffer.from(totalData),
+            'sha256', // Hash algorithm
+            Buffer.from(dataString, 'utf-8'), // Data to verify
             {
-                key: privateKey,
+                key: publicKey,
                 padding: crypto.constants.RSA_PKCS1_PADDING,
             },
-            providedSignature
+            providedSignature // Decoded signature
         );
 
         console.log('Signature verification result:', isValid);
@@ -85,12 +89,11 @@ XdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=
             return NextResponse.json({ success: false, message: 'Invalid signature' });
         }
 
-        // Prepare the data string for the payment gateway
-        const dataStrings = JSON.stringify(apiData).replace(/\s/g, '');
-        console.log('Processed Data String:', dataStrings);
+        // Prepare the processed data for the payment gateway
+        const dataStringProcessed = JSON.stringify(apiData).replace(/\s/g, '');
+        console.log('Processed Data String:', dataStringProcessed);
 
-        // You can proceed with sending this data to the KoKo API endpoint
-
+        // Proceed with sending data to the KoKo API or further processing
         return NextResponse.json({ success: true, message: 'Payment verified successfully' });
     } catch (error) {
         console.error('Error during KoKo payment process:', error);
