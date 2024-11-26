@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="fix image quality issue">
+    <list default="true" id="3b5b2c5e-061b-4f44-91d6-7d5f0c7d443d" name="Changes" comment="fix image quality issue and parameter">
+      <change afterPath="$PROJECT_DIR$/src/app/api/koko-callback/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/payment/koko-payment-failed/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/payment/koko-payment-success/page..tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/common/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/common/ProductCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/callback/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/callback/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -99,7 +103,7 @@
       <workItem from="1732508281515" duration="10456000" />
       <workItem from="1732521557011" duration="1881000" />
       <workItem from="1732523814674" duration="11161000" />
-      <workItem from="1732592090587" duration="1120000" />
+      <workItem from="1732592090587" duration="8207000" />
     </task>
     <task id="LOCAL-00001" summary="fix errors">
       <option name="closed" value="true" />
@@ -285,7 +289,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732592589196</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="fix image quality issue">
+      <option name="closed" value="true" />
+      <created>1732593449931</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1732593449931</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix image quality issue and parameter">
+      <option name="closed" value="true" />
+      <created>1732594423665</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1732594423665</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,7 +331,8 @@
     <MESSAGE value="implement end point" />
     <MESSAGE value="implement payment gateway" />
     <MESSAGE value="fix image quality issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix image quality issue" />
+    <MESSAGE value="fix image quality issue and parameter" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix image quality issue and parameter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
